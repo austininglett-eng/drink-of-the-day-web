@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Drink of the Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ice:#EDF3F2;--paper:#FFFFFF;--ink:#16324A;--mute:#5B7183;--line:#D3E0E0;--citrus:#F0B429;--bitter:#B8344A;
+--serif:"Fraunces",Georgia,serif;--sans:"Instrument Sans",system-ui,sans-serif}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--ice);color:var(--ink);font:16px/1.5 var(--sans);
+padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+main{max-width:640px;margin:0 auto;padding:20px 16px 48px}
+h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.15}
+h1{font-size:2.2rem;font-weight:700}
+.sub{color:var(--mute);margin:4px 0 20px}
+input[type=search]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--paper);color:var(--ink)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 16px}
+.chip{flex:none;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:6px 14px;border-radius:999px;font:500 .9rem var(--sans);cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+:focus-visible{outline:3px solid var(--citrus);outline-offset:2px}
+.card{display:block;width:100%;text-align:left;background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--accent,var(--ink));
+border-radius:6px 14px 14px 6px;padding:16px;margin-bottom:12px;cursor:pointer;color:inherit;font:inherit}
+.card h2{font-size:1.4rem}
+.meta{color:var(--mute);font-size:.9rem;margin:2px 0 10px}
+.pair{display:flex;flex-direction:column;gap:2px;font-size:.92rem}
+.pair b{font-weight:600}
+.back{background:none;border:0;color:var(--ink);font:600 1rem var(--sans);padding:8px 0;cursor:pointer;text-decoration:underline}
+.detail{background:var(--paper);border:1px solid var(--line);border-top:8px solid var(--accent,var(--ink));border-radius:14px;padding:20px}
+.detail h1{font-size:2rem}
+.detail h3{font-size:1.15rem;margin:22px 0 8px}
+ul.ing{list-style:none;padding:0;margin:0}
+ul.ing li{display:flex;gap:12px;padding:7px 0;border-bottom:1px dashed var(--line)}
+ul.ing .amt{min-width:76px;font-weight:600}
+ol{padding-left:20px;margin:0}
+ol li{margin-bottom:8px}
+.note{background:var(--ice);border-radius:10px;padding:12px 14px}
+.pairbox{display:grid;gap:10px}
+.pairbox div{border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.pairbox small{color:var(--mute);display:block}
+.empty{color:var(--mute);padding:24px 0;text-align:center}
+</style>
+</head>
+<body>
+<main id="app"></main>
+
+<!-- ============ YOUR DATA ============
+Move this block to recipes.json later. One recipe = one object.
+"pack" must match an id in "packs". "spirit" drives the filter chips.
+-->
+<script type="application/json" id="data">
+{
+  "packs": [
+    { "id": "starter", "name": "Starter Pack", "free": true }
+  ],
+  "recipes": [
+    {
+      "id": "old-fashioned",
+      "name": "Old Fashioned",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "ingredients": [
+        { "amount": "2", "unit": "oz", "item": "bourbon or rye" },
+        { "amount": "1", "unit": "tsp", "item": "demerara syrup" },
+        { "amount": "2", "unit": "dashes", "item": "Angostura bitters" },
+        { "amount": "1", "unit": "", "item": "orange peel" }
+      ],
+      "steps": [
+        "Add syrup and bitters to a rocks glass, then the whiskey.",
+        "Add one large ice cube and stir for 20 seconds.",
+        "Express the orange peel over the glass and drop it in."
+      ],
+      "notes": "Sample note: replace with your own tweaks and tasting notes.",
+      "pairings": {
+        "song": { "title": "Sample Song", "artist": "Sample Artist" },
+        "food": "Sample pairing: salted nuts or a good burger"
+      }
+    },
+    {
+      "id": "negroni",
+      "name": "Negroni",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Rocks glass",
+      "ingredients": [
+        { "amount": "1", "unit": "oz", "item": "gin" },
+        { "amount": "1", "unit": "oz", "item": "Campari" },
+        { "amount": "1", "unit": "oz", "item": "sweet vermouth" },
+        { "amount": "1", "unit": "", "item": "orange slice" }
+      ],
+      "steps": [
+        "Stir gin, Campari, and vermouth with ice for 20 seconds.",
+        "Strain over fresh ice in a rocks glass.",
+        "Garnish with an orange slice."
+      ],
+      "notes": "Sample note: equal parts, so it is easy to scale for a crowd.",
+      "pairings": {
+        "song": { "title": "Sample Song", "artist": "Sample Artist" },
+        "food": "Sample pairing: olives, salami, sharp cheese"
+      }
+    },
+    {
+      "id": "daiquiri",
+      "name": "Daiquiri",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Coupe",
+      "ingredients": [
+        { "amount": "2", "unit": "oz", "item": "white rum" },
+        { "amount": "1", "unit": "oz", "item": "fresh lime juice" },
+        { "amount": "3/4", "unit": "oz", "item": "simple syrup" }
+      ],
+      "steps": [
+        "Add everything to a shaker with ice and shake hard for 12 seconds.",
+        "Strain into a chilled coupe."
+      ],
+      "notes": "Sample note: taste and adjust the syrup to your limes.",
+      "pairings": {
+        "song": { "title": "Sample Song", "artist": "Sample Artist" },
+        "food": "Sample pairing: fish tacos"
+      }
+    }
+  ]
+}
+</script>
+
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const app = document.getElementById('app');
+const ACCENT = {Whiskey:'#B5651D', Gin:'#2E7D6B', Rum:'#C9871F', Tequila:'#7A9A2E', Vodka:'#4A6FA5', Other:'#8A5A83'};
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let query = '', spirit = 'All';
+
+function accent(r){ return ACCENT[r.spirit] || ACCENT.Other; }
+
+function renderList(){
+  const spirits = ['All', ...new Set(DATA.recipes.map(r => r.spirit))];
+  const q = query.toLowerCase();
+  const shown = DATA.recipes.filter(r =>
+    (spirit === 'All' || r.spirit === spirit) &&
+    (!q || (r.name + ' ' + r.ingredients.map(i => i.item).join(' ') + ' ' + r.pairings.food).toLowerCase().includes(q)));
+  app.innerHTML = `
+    <h1>Drink of the Day</h1>
+    <p class="sub">Recipes, with a song and a bite to go with each.</p>
+    <input type="search" id="q" placeholder="Search drinks or ingredients" value="${esc(query)}" aria-label="Search recipes">
+    <div class="chips">${spirits.map(s => `<button class="chip" aria-pressed="${s===spirit}" data-s="${esc(s)}">${esc(s)}</button>`).join('')}</div>
+    ${shown.length ? shown.map(r => `
+      <button class="card" style="--accent:${accent(r)}" data-id="${esc(r.id)}">
+        <h2>${esc(r.name)}</h2>
+        <div class="meta">${esc(r.spirit)} &middot; ${esc(r.glass)}</div>
+        <div class="pair">
+          <span><b>Listen:</b> ${esc(r.pairings.song.title)}, ${esc(r.pairings.song.artist)}</span>
+          <span><b>Eat:</b> ${esc(r.pairings.food)}</span>
+        </div>
+      </button>`).join('') : '<p class="empty">No drinks match. Try a different search.</p>'}`;
+  const input = document.getElementById('q');
+  input.addEventListener('input', e => { query = e.target.value; const pos = query.length; renderList(); const n = document.getElementById('q'); n.focus(); n.setSelectionRange(pos,pos); });
+  app.querySelectorAll('.chip').forEach(b => b.onclick = () => { spirit = b.dataset.s; renderList(); });
+  app.querySelectorAll('.card').forEach(b => b.onclick = () => { location.hash = b.dataset.id; });
+}
+
+function renderDetail(r){
+  app.innerHTML = `
+    <button class="back" id="back">Back to all drinks</button>
+    <article class="detail" style="--accent:${accent(r)}">
+      <h1>${esc(r.name)}</h1>
+      <div class="meta">${esc(r.spirit)} &middot; ${esc(r.glass)}</div>
+      <h3>Ingredients</h3>
+      <ul class="ing">${r.ingredients.map(i => `<li><span class="amt">${esc(i.amount)} ${esc(i.unit)}</span><span>${esc(i.item)}</span></li>`).join('')}</ul>
+      <h3>Method</h3>
+      <ol>${r.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
+      <h3>My notes</h3>
+      <div class="note">${esc(r.notes)}</div>
+      <h3>Pairings</h3>
+      <div class="pairbox">
+        <div><small>Song</small>${esc(r.pairings.song.title)}, ${esc(r.pairings.song.artist)}</div>
+        <div><small>Food</small>${esc(r.pairings.food)}</div>
+      </div>
+    </article>`;
+  document.getElementById('back').onclick = () => { location.hash = ''; };
+  window.scrollTo(0,0);
+}
+
+function route(){
+  const r = DATA.recipes.find(x => x.id === location.hash.slice(1));
+  r ? renderDetail(r) : renderList();
+}
+window.addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
