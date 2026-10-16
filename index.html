@@ -19,7 +19,10 @@ h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.15}
 h1{font-size:2.2rem;font-weight:700}
 .sub{color:var(--mute);margin:4px 0 20px}
 input[type=search]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--paper);color:var(--ink)}
-.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 16px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 6px}
+.chips+.chips{padding-top:0;padding-bottom:16px}
+.chip.tag[aria-pressed=true]{background:var(--citrus);color:var(--ink);border-color:var(--citrus)}
+.hint{color:var(--mute);font-size:.9rem;margin:0 0 12px}
 .chip{flex:none;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:6px 14px;border-radius:999px;font:500 .9rem var(--sans);cursor:pointer}
 .chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
 :focus-visible{outline:3px solid var(--citrus);outline-offset:2px}
@@ -43,6 +46,11 @@ ol li{margin-bottom:8px}
 .pairbox div{border:1px solid var(--line);border-radius:10px;padding:10px 14px}
 .pairbox small{color:var(--mute);display:block}
 .empty{color:var(--mute);padding:24px 0;text-align:center}
+.pt{display:block}
+.draft{font:600 .7rem var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:2px 8px;vertical-align:middle}
+.links{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.mini{border:1px solid var(--line);background:var(--ice);color:var(--ink);padding:5px 12px;border-radius:999px;font:500 .85rem var(--sans);text-decoration:none;cursor:pointer}
+.mini:hover{border-color:var(--ink)}
 </style>
 </head>
 <body>
@@ -55,31 +63,4309 @@ Move this block to recipes.json later. One recipe = one object.
 <script type="application/json" id="data">
 {
   "packs": [
-    { "id": "starter", "name": "Starter Pack", "free": true }
+    {
+      "id": "starter",
+      "name": "Starter Pack",
+      "free": true
+    }
   ],
   "recipes": [
     {
-      "id": "old-fashioned",
-      "name": "Old Fashioned",
+      "id": "no-supplies",
+      "name": "No Supplies",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Coupe",
+      "serves": 2,
+      "ingredients": [
+        {
+          "amount": "4",
+          "unit": "oz",
+          "item": "dark rum"
+        },
+        {
+          "amount": "4",
+          "unit": "oz",
+          "item": "pandan liqueur"
+        },
+        {
+          "amount": "1",
+          "unit": "can",
+          "item": "coconut milk (sweetened works better)"
+        },
+        {
+          "amount": "6",
+          "unit": "oz",
+          "item": "pineapple juice"
+        },
+        {
+          "amount": "1",
+          "unit": "drop",
+          "item": "ube extract, per glass"
+        }
+      ],
+      "steps": [
+        "Shake everything except the ube extract in a shaker with ice, then strain into coupe glasses.",
+        "Add a drop of ube extract to each glass and stir with a spoon. It turns very purple."
+      ],
+      "notes": "A little ube goes a long way. Made with unsweetened coconut milk this time. Used overproof rum. A blender worked in place of a shaker.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Chicken satay with peanut sauce",
+        "foodQuery": "chicken satay",
+        "draft": true
+      },
+      "year": 2026,
+      "tags": [
+        "Sweet",
+        "Bright"
+      ]
+    },
+    {
+      "id": "filthiest-martini",
+      "name": "Filthiest Martini",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Martini glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "3",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "pickle juice"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Ancho Reyes chili liqueur"
+        },
+        {
+          "amount": "Small splash",
+          "unit": "of",
+          "item": "soy sauce"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "olive, for the bottom of the glass"
+        }
+      ],
+      "steps": [
+        "Shake and serve up with an olive at the bottom of the glass.",
+        "A light foam forms on top. Crack pepper over it as garnish."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Smash burger sliders",
+        "foodQuery": "smash burger sliders",
+        "draft": true
+      },
+      "year": 2026,
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "flying-spaghetti-monster",
+      "name": "Flying Spaghetti Monster",
+      "pack": "starter",
+      "spirit": "Amaro",
+      "glass": "Pint glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Averna Amaro"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Aperol"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Angostura bitters"
+        },
+        {
+          "amount": "1",
+          "unit": "can",
+          "item": "Modelo (or any lager), to top"
+        }
+      ],
+      "steps": [
+        "Add the Averna, Aperol, and bitters to a glass.",
+        "Top with the beer and stir."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Spaghetti and meatballs",
+        "foodQuery": "spaghetti and meatballs",
+        "draft": true
+      },
+      "year": 2026,
+      "tags": [
+        "Fizzy"
+      ]
+    },
+    {
+      "id": "best-of-both-worlds-martini",
+      "name": "Best of Both Worlds Martini",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Martini glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "3",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Lillet Blanc"
+        },
+        {
+          "amount": "Up to 1/2",
+          "unit": "oz",
+          "item": "lemon juice (juice of a small lemon)"
+        },
+        {
+          "amount": "1/4",
+          "unit": "oz",
+          "item": "Maraschino liqueur"
+        },
+        {
+          "amount": "1/4",
+          "unit": "oz",
+          "item": "olive brine"
+        },
+        {
+          "amount": "Dashes",
+          "unit": "of",
+          "item": "lemon bitters"
+        },
+        {
+          "amount": "1-2",
+          "unit": "",
+          "item": "olives, for the bottom of the glass"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "lemon peel slice, for the top"
+        }
+      ],
+      "steps": [
+        "Shake and serve up with an olive or two at the bottom of the glass and a lemon peel slice on top."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Marinated olives and Manchego",
+        "foodQuery": "marinated olives manchego",
+        "draft": true
+      },
+      "year": 2026,
+      "tags": [
+        "Bright"
+      ]
+    },
+    {
+      "id": "heathers-maple-concoction",
+      "name": "Heather's Maple Concoction",
       "pack": "starter",
       "spirit": "Whiskey",
       "glass": "Rocks glass",
+      "serves": 1,
       "ingredients": [
-        { "amount": "2", "unit": "oz", "item": "bourbon or rye" },
-        { "amount": "1", "unit": "tsp", "item": "demerara syrup" },
-        { "amount": "2", "unit": "dashes", "item": "Angostura bitters" },
-        { "amount": "1", "unit": "", "item": "orange peel" }
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "maple whiskey"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Ancho Reyes chili liqueur"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "lemon juice"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Angostura bitters"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "cherry, for garnish"
+        }
       ],
       "steps": [
-        "Add syrup and bitters to a rocks glass, then the whiskey.",
-        "Add one large ice cube and stir for 20 seconds.",
-        "Express the orange peel over the glass and drop it in."
+        "Stir the ingredients and serve in a rocks glass.",
+        "Garnish with a cherry."
       ],
-      "notes": "Sample note: replace with your own tweaks and tasting notes.",
+      "notes": "",
       "pairings": {
-        "song": { "title": "Sample Song", "artist": "Sample Artist" },
-        "food": "Sample pairing: salted nuts or a good burger"
-      }
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Bacon-wrapped dates",
+        "foodQuery": "bacon wrapped dates",
+        "draft": true
+      },
+      "year": 2026,
+      "tags": [
+        "Bright",
+        "Cozy"
+      ]
+    },
+    {
+      "id": "arizona-manhattan",
+      "name": "Arizona Manhattan",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Coupe",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "Arizona sherry cask whiskey"
+        },
+        {
+          "amount": "1/4",
+          "unit": "oz",
+          "item": "Averna Amaro"
+        },
+        {
+          "amount": "1/4",
+          "unit": "oz",
+          "item": "amaretto"
+        },
+        {
+          "amount": "1/4",
+          "unit": "oz",
+          "item": "Ancho Reyes chili liqueur"
+        },
+        {
+          "amount": "1/4",
+          "unit": "oz",
+          "item": "dry vermouth"
+        },
+        {
+          "amount": "Dashes",
+          "unit": "of",
+          "item": "Angostura and Peychaud's bitters"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "Luxardo cherry"
+        }
+      ],
+      "steps": [
+        "Shake and serve up.",
+        "Garnish with a Luxardo cherry."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Carne asada tacos",
+        "foodQuery": "carne asada tacos",
+        "draft": true
+      },
+      "year": 2025,
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "holiday-cheer",
+      "name": "Holiday Cheer",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "whiskey"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "amaretto"
+        },
+        {
+          "amount": "4",
+          "unit": "oz",
+          "item": "apple juice"
+        },
+        {
+          "amount": "Dashes",
+          "unit": "of",
+          "item": "Angostura, cranberry, and orange bitters"
+        }
+      ],
+      "steps": [
+        "Combine the ingredients and serve on the rocks."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Baked brie with cranberry",
+        "foodQuery": "baked brie cranberry",
+        "draft": true
+      },
+      "year": 2025,
+      "tags": [
+        "Bright"
+      ]
+    },
+    {
+      "id": "light-tea-cocktail",
+      "name": "Light Tea Cocktail",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Teacup",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "",
+          "unit": "",
+          "item": "tea, a light flavor like ginger, pear, or peach"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "vodka"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "elderflower liqueur"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "orange bitters"
+        },
+        {
+          "amount": "Dash",
+          "unit": "of",
+          "item": "honey"
+        }
+      ],
+      "steps": [
+        "Serve the tea hot in a teacup.",
+        "Add the cocktail ingredients and stir."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Lemon shortbread cookies",
+        "foodQuery": "lemon shortbread",
+        "draft": true
+      },
+      "year": 2025,
+      "tags": [
+        "Bold",
+        "Cozy"
+      ]
+    },
+    {
+      "id": "red-manhattan",
+      "name": "Red Manhattan",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Coupe",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2 1/2",
+          "unit": "oz",
+          "item": "whiskey"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "red vermouth"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "amaro"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "maple syrup"
+        },
+        {
+          "amount": "Dashes",
+          "unit": "of",
+          "item": "Angostura and Woodland bitters"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "Luxardo cherry"
+        }
+      ],
+      "steps": [
+        "Serve up and garnish with a Luxardo cherry."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Roast duck breast with cherry sauce",
+        "foodQuery": "duck breast cherry sauce",
+        "draft": true
+      },
+      "year": 2025,
+      "tags": [
+        "Bold",
+        "Cozy"
+      ]
+    },
+    {
+      "id": "sunset-negroni",
+      "name": "Sunset Negroni",
+      "pack": "starter",
+      "spirit": "Mezcal",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "mezcal"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Aperol or Campari"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Grand Marnier"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "orange bitters (optional)"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "cherry or lemon peel, for garnish"
+        }
+      ],
+      "steps": [
+        "Stir the ingredients in a rocks glass.",
+        "Garnish with a cherry or lemon peel."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Grilled citrus shrimp skewers",
+        "foodQuery": "grilled shrimp skewers citrus",
+        "draft": true
+      },
+      "year": 2025,
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "cotton-candy-clouds",
+      "name": "Cotton Candy Clouds",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Coupe",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Licor 43"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "elderflower liqueur"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Domaine de Canton ginger liqueur"
+        },
+        {
+          "amount": "Dashes",
+          "unit": "of",
+          "item": "lemon and Angostura bitters"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "Luxardo cherry"
+        }
+      ],
+      "steps": [
+        "Shake and serve in a coupe glass.",
+        "Garnish with a Luxardo cherry."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "French macarons",
+        "foodQuery": "french macarons",
+        "draft": true
+      },
+      "year": 2025,
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "moonhattan",
+      "name": "Moonhattan",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Coupe",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2-3",
+          "unit": "oz",
+          "item": "whiskey"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "maple syrup"
+        },
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "espresso"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "amaro"
+        },
+        {
+          "amount": "Dashes",
+          "unit": "of",
+          "item": "aromatic bitters"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "Luxardo cherry"
+        }
+      ],
+      "steps": [
+        "Shake and serve up with a Luxardo cherry."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Dark chocolate pots de crème",
+        "foodQuery": "chocolate pots de creme",
+        "draft": true
+      },
+      "year": 2025,
+      "tags": [
+        "Bold",
+        "Cozy"
+      ]
+    },
+    {
+      "id": "beach-bonfire",
+      "name": "Beach Bonfire",
+      "pack": "starter",
+      "spirit": "Mezcal",
+      "glass": "Highball glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "mezcal"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "citrus simple syrup"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "mole bitters"
+        },
+        {
+          "amount": "Top with",
+          "unit": "",
+          "item": "Mexican Coke"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "Luxardo cherry, optional"
+        }
+      ],
+      "steps": [
+        "Combine the mezcal, syrup, and bitters over ice.",
+        "Top with Mexican Coke.",
+        "Add a Luxardo cherry if you're feeling fancy."
+      ],
+      "notes": "It's so lit.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Elote (Mexican street corn)",
+        "foodQuery": "elote mexican street corn",
+        "draft": true
+      },
+      "year": 2025,
+      "tags": [
+        "Fizzy"
+      ]
+    },
+    {
+      "id": "eye-of-jupiter",
+      "name": "The Eye of Jupiter",
+      "pack": "starter",
+      "spirit": "Mezcal",
+      "glass": "Coupe",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "3",
+          "unit": "oz",
+          "item": "mezcal"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "amaro with citrus and orange blossom notes"
+        },
+        {
+          "amount": "1/4",
+          "unit": "oz",
+          "item": "maple syrup"
+        },
+        {
+          "amount": "A few",
+          "unit": "dashes of",
+          "item": "mole bitters"
+        },
+        {
+          "amount": "1 small",
+          "unit": "spoonful of",
+          "item": "Luxardo cherry syrup"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "cherry, for the bottom of the glass"
+        }
+      ],
+      "steps": [
+        "Serve up with a cherry at the bottom of the glass."
+      ],
+      "notes": "Should be a cool orange-red color. The amaro brand was called \"Accompani\".",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Chicken mole poblano",
+        "foodQuery": "chicken mole poblano",
+        "draft": true
+      },
+      "year": 2025,
+      "tags": [
+        "Bold",
+        "Cozy"
+      ]
+    },
+    {
+      "id": "aquavit-perfection-martini",
+      "name": "The Aquavit Perfection Martini",
+      "pack": "starter",
+      "spirit": "Aquavit",
+      "glass": "Martini glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "3",
+          "unit": "oz",
+          "item": "aquavit"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "dry vermouth"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Luxardo Maraschino liqueur"
+        }
+      ],
+      "steps": [
+        "Shake and serve up."
+      ],
+      "notes": "Wild version: add a dash of absinthe. It's very good!",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Gravlax on rye with dill",
+        "foodQuery": "gravlax",
+        "draft": true
+      },
+      "year": 2025,
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "pineapple-basil-cooler",
+      "name": "Pineapple Basil Cooler",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Martini glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "pineapple juice"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Malibu coconut rum"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Licor 43"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "lime juice"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "elderflower liqueur"
+        },
+        {
+          "amount": "3-4",
+          "unit": "",
+          "item": "basil leaves"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "cherry, for the bottom of the glass"
+        }
+      ],
+      "steps": [
+        "Muddle the basil, add the other ingredients with ice, and shake.",
+        "Serve up with a cherry at the bottom of the glass.",
+        "Sprinkle fresh black pepper on top."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Caprese skewers",
+        "foodQuery": "caprese skewers",
+        "draft": true
+      },
+      "year": 2025,
+      "tags": [
+        "Sweet",
+        "Bright"
+      ]
+    },
+    {
+      "id": "fluffy-hazelnut-mocha",
+      "name": "Fluffy Hazelnut Mocha",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Coupe",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "vodka"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "egg white"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Kahlúa"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "cream or milk"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Frangelico hazelnut liqueur"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "chocolate shavings, for the top"
+        }
+      ],
+      "steps": [
+        "Top with chocolate shavings."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Chocolate hazelnut biscotti",
+        "foodQuery": "chocolate hazelnut biscotti",
+        "draft": true
+      },
+      "year": 2024,
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "moms-white-lady",
+      "name": "Mom's White Lady",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Coupe",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "London dry gin"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Cointreau"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "lemon juice"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "egg white"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Smoked salmon blinis with crème fraîche",
+        "foodQuery": "smoked salmon blini",
+        "draft": true
+      },
+      "year": 2024,
+      "tags": [
+        "Bright"
+      ]
+    },
+    {
+      "id": "chocolate-milk-shot",
+      "name": "\"Chocolate Milk\" Shot",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Shot glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "part",
+          "item": "white rum"
+        },
+        {
+          "amount": "1",
+          "unit": "part",
+          "item": "coffee liqueur"
+        },
+        {
+          "amount": "1",
+          "unit": "part",
+          "item": "almond milk"
+        }
+      ],
+      "steps": [],
+      "notes": "Equal parts of each.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Warm chocolate chip cookies",
+        "foodQuery": "chocolate chip cookies",
+        "draft": true
+      },
+      "year": 2024,
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "portland-spanish-connection",
+      "name": "Portland-Spanish Connection",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Mug (hot) or rocks glass (iced)",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "",
+          "unit": "",
+          "item": "espresso"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "coffee liqueur"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "cinnamon whiskey"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Irish cream liqueur or similar"
+        },
+        {
+          "amount": "Dash",
+          "unit": "of",
+          "item": "cinnamon, for the top"
+        }
+      ],
+      "steps": [
+        "Serve hot or iced.",
+        "Dust cinnamon on top."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Churros with chocolate sauce",
+        "foodQuery": "churros chocolate sauce",
+        "draft": true
+      },
+      "year": 2024,
+      "tags": [
+        "Sweet",
+        "Cozy"
+      ]
+    },
+    {
+      "id": "a-zest-for-life",
+      "name": "A Zest for Life",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Martini glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "Juice of 1",
+          "unit": "",
+          "item": "lemon"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "ginger liqueur, like Domaine de Canton"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "St-Germain elderflower liqueur"
+        },
+        {
+          "amount": "1-2",
+          "unit": "oz",
+          "item": "vanilla-infused vodka, depending on how you're feeling"
+        },
+        {
+          "amount": "1 small",
+          "unit": "tsp",
+          "item": "agave syrup"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Combier orange liqueur (optional, for a little more zest)"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "small slice of lemon peel, for garnish"
+        }
+      ],
+      "steps": [
+        "Shake and serve in a martini glass.",
+        "Garnish with a small slice of lemon peel."
+      ],
+      "notes": "Like an enhanced lemon drop.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Lemon ricotta crostini with honey",
+        "foodQuery": "lemon ricotta crostini",
+        "draft": true
+      },
+      "year": 2024,
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "shirley-and-roy",
+      "name": "Shirley and Roy",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Coupe",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "whiskey"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Aperol"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "white crème de cacao"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "red vermouth"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "Angostura and Peychaud's bitters"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "Luxardo cherry"
+        }
+      ],
+      "steps": [
+        "Garnish with a Luxardo cherry."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Cherry almond tart",
+        "foodQuery": "cherry almond tart",
+        "draft": true
+      },
+      "year": 2024,
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "spirit-of-velvet",
+      "name": "Spirit of Velvet",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Martini glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Licor 43"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "vodka"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "cranberry juice"
+        },
+        {
+          "amount": "1/2",
+          "unit": "",
+          "item": "lime"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "triple sec"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "Luxardo cherry, for the bottom of the glass"
+        }
+      ],
+      "steps": [
+        "Shake and serve in a martini glass with a Luxardo cherry at the bottom."
+      ],
+      "notes": "Like a more nuanced Cosmopolitan.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Crab cakes with lemon aioli",
+        "foodQuery": "crab cakes lemon aioli",
+        "draft": true
+      },
+      "year": 2024,
+      "tags": [
+        "Sweet",
+        "Bright"
+      ]
+    },
+    {
+      "id": "violet-boulevard",
+      "name": "Violet Boulevard",
+      "pack": "starter",
+      "spirit": "Brandy",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2023,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "brandy"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "crème de violette"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "raspberry simple syrup"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "Angostura bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Dark chocolate raspberry truffles",
+        "foodQuery": "chocolate raspberry truffles",
+        "draft": true
+      },
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "she-wolf-shot",
+      "name": "She-Wolf Shot",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Shot glass",
+      "serves": 1,
+      "year": 2023,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "raspberry simple syrup"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "Angostura bitters"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "crème de violette"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Raspberry cheesecake bites",
+        "foodQuery": "raspberry cheesecake bites",
+        "draft": true
+      },
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "the-barbie",
+      "name": "The Barbie",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Champagne flute",
+      "serves": 1,
+      "year": 2023,
+      "ingredients": [
+        {
+          "amount": "1-2",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "1/2-1",
+          "unit": "oz",
+          "item": "raspberry simple syrup"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Angostura bitters"
+        },
+        {
+          "amount": "Top with",
+          "unit": "",
+          "item": "chilled white wine"
+        }
+      ],
+      "steps": [
+        "Top with chilled white wine and stir."
+      ],
+      "notes": "Tastes like a peach French 75, minus the carbonation. Use 1-2 oz gin depending on how long a day you had, and 1/2-1 oz syrup depending on how sweet you want it.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Peach and burrata salad",
+        "foodQuery": "peach burrata salad",
+        "draft": true
+      },
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "simplicity",
+      "name": "Simplicity",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Small rocks glass",
+      "serves": 1,
+      "year": 2023,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "raspberry simple syrup"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "bitters"
+        },
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "spirit (rum, or anything)"
+        }
+      ],
+      "steps": [
+        "Serve over a round ice cube in a small glass."
+      ],
+      "notes": "Made with rum, but any spirit works. Just a great combo of flavors.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Raspberry almond scones",
+        "foodQuery": "raspberry almond scones",
+        "draft": true
+      },
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "portlandandian-horchata",
+      "name": "Portlandandian Horchata",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2023,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "rum"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Malibu"
+        },
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "almond milk (unsweetened)"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "agave syrup, to taste"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "Angostura bitters"
+        },
+        {
+          "amount": "Dash",
+          "unit": "of",
+          "item": "cinnamon"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Tres leches cake",
+        "foodQuery": "tres leches cake",
+        "draft": true
+      },
+      "tags": [
+        "Sweet",
+        "Cozy"
+      ]
+    },
+    {
+      "id": "onto-something",
+      "name": "Onto Something",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Highball glass",
+      "serves": 1,
+      "year": 2023,
+      "ingredients": [
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "lemon juice"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "amaro"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "crème de violette (optional)"
+        },
+        {
+          "amount": "Small dash",
+          "unit": "of",
+          "item": "grenadine (optional)"
+        },
+        {
+          "amount": "Top with",
+          "unit": "",
+          "item": "cherry or cranberry juice (or a Cran-Cherry juice if you can find it)"
+        }
+      ],
+      "steps": [
+        "Top with the juice."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Herb-roasted chicken thighs",
+        "foodQuery": "herb roasted chicken thighs",
+        "draft": true
+      },
+      "tags": [
+        "Sweet",
+        "Bright"
+      ]
+    },
+    {
+      "id": "post-christmas-sipper",
+      "name": "Post Christmas Sipper",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2022,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "whiskey"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "elderflower liqueur"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Aperol"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "Peychaud's bitters"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "cranberry juice"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Turkey and cranberry sandwiches",
+        "foodQuery": "turkey cranberry sandwich",
+        "draft": true
+      },
+      "tags": [
+        "Bright"
+      ]
+    },
+    {
+      "id": "spiced-apple",
+      "name": "Spiced Apple",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2022,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "vodka"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "red vermouth"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "white crème de cacao"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "apple juice"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "cranberry bitters"
+        }
+      ],
+      "steps": [
+        "Serve on the rocks."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Apple cider donuts",
+        "foodQuery": "apple cider donuts",
+        "draft": true
+      },
+      "tags": [
+        "Sweet",
+        "Bright"
+      ]
+    },
+    {
+      "id": "red-velvet",
+      "name": "Red Velvet",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2022,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "whiskey"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "red vermouth"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "white crème de cacao"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "cranberry juice"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "cranberry bitters"
+        }
+      ],
+      "steps": [
+        "Serve on the rocks."
+      ],
+      "notes": "Same as Spiced Apple, with whiskey in place of the vodka and cranberry juice in place of the apple juice.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Red velvet cupcakes",
+        "foodQuery": "red velvet cupcakes",
+        "draft": true
+      },
+      "tags": [
+        "Sweet",
+        "Bright"
+      ]
+    },
+    {
+      "id": "sunset-in-seattle",
+      "name": "Sunset in Seattle",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2022,
+      "ingredients": [
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "citrus juice (lime and lemon combo)"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "triple sec"
+        },
+        {
+          "amount": "1 3/4",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "white vermouth"
+        },
+        {
+          "amount": "A little",
+          "unit": "",
+          "item": "Campari, on top for color"
+        }
+      ],
+      "steps": [
+        "Top with just a little Campari for color."
+      ],
+      "notes": "Exceptional.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Pan-seared scallops with citrus butter",
+        "foodQuery": "seared scallops citrus butter",
+        "draft": true
+      },
+      "tags": [
+        "Bright"
+      ]
+    },
+    {
+      "id": "orange-bundt-cake",
+      "name": "Orange Bundt Cake",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2022,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "dark rum (Hawaiian or something sweeter)"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "white crème de cacao"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "orange juice"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "orange and Peychaud's bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Glazed orange bundt cake",
+        "foodQuery": "orange bundt cake",
+        "draft": true
+      },
+      "tags": [
+        "Sweet",
+        "Bright"
+      ]
+    },
+    {
+      "id": "spiced-citrus",
+      "name": "Spiced Citrus",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2022,
+      "ingredients": [
+        {
+          "amount": "1-2",
+          "unit": "oz",
+          "item": "vodka"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "lemon juice"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "sweet vermouth"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "white crème de cacao"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "orange bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Chocolate-dipped candied orange peel",
+        "foodQuery": "chocolate dipped candied orange peel",
+        "draft": true
+      },
+      "tags": [
+        "Sweet",
+        "Bright"
+      ]
+    },
+    {
+      "id": "manquila",
+      "name": "ManQuila",
+      "pack": "starter",
+      "spirit": "Tequila",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "tequila"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "triple sec"
+        },
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "red vermouth"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Angostura bitters"
+        }
+      ],
+      "steps": [
+        "Serve up."
+      ],
+      "notes": "Basically a margarita plus a Manhattan. Swap in different orange liqueurs, tequilas, or vermouths for variety.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Smoky chipotle queso with chips",
+        "foodQuery": "chipotle queso",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "something-adventurous",
+      "name": "Something Adventurous",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2 1/2",
+          "unit": "oz",
+          "item": "rum"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Averna Amaro"
+        },
+        {
+          "amount": "1/3",
+          "unit": "oz",
+          "item": "rosemary simple syrup"
+        },
+        {
+          "amount": "1 1/2",
+          "unit": "bar spoons",
+          "item": "olive juice"
+        },
+        {
+          "amount": "1",
+          "unit": "dash",
+          "item": "Angostura bitters"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "olive, for garnish"
+        }
+      ],
+      "steps": [
+        "Garnish with an olive."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Rosemary focaccia with olive tapenade",
+        "foodQuery": "olive tapenade focaccia",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "sneakily-heavy",
+      "name": "Sneakily Heavy",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Martini glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2 1/4",
+          "unit": "oz",
+          "item": "Aviation gin"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "elderflower liqueur"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "white vermouth"
+        },
+        {
+          "amount": "2",
+          "unit": "dashes",
+          "item": "orange bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Oysters with mignonette",
+        "foodQuery": "oysters mignonette",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "goodbye-cutie",
+      "name": "Goodbye Cutie",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Highball glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "1/2",
+          "unit": "bottle",
+          "item": "ginger beer"
+        },
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "2",
+          "unit": "dashes",
+          "item": "orange bitters"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "white vermouth"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "lemon juice"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "lemon peel, for garnish"
+        }
+      ],
+      "steps": [
+        "Garnish with a lemon peel."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Lemon-ginger glazed salmon",
+        "foodQuery": "lemon ginger salmon",
+        "draft": true
+      },
+      "tags": [
+        "Fizzy",
+        "Bright"
+      ]
+    },
+    {
+      "id": "maple-bourbon",
+      "name": "Maple Bourbon",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "1/3",
+          "unit": "oz",
+          "item": "maple syrup"
+        },
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "bourbon"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "nutmeg and cinnamon"
+        },
+        {
+          "amount": "1",
+          "unit": "dash",
+          "item": "Angostura bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Pecan pie bars",
+        "foodQuery": "pecan pie bars",
+        "draft": true
+      },
+      "tags": [
+        "Bold",
+        "Cozy"
+      ]
+    },
+    {
+      "id": "maple-bourbon-darker",
+      "name": "Maple Bourbon (But Darker)",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "1/3",
+          "unit": "oz",
+          "item": "maple syrup"
+        },
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "bourbon"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "nutmeg and cinnamon, or pumpkin pie spice"
+        },
+        {
+          "amount": "1",
+          "unit": "dash",
+          "item": "Angostura bitters"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Averna Amaro"
+        }
+      ],
+      "steps": [],
+      "notes": "The Maple Bourbon with a splash of amaro.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Dark chocolate pecan brownies",
+        "foodQuery": "chocolate pecan brownies",
+        "draft": true
+      },
+      "tags": [
+        "Bold",
+        "Cozy"
+      ]
+    },
+    {
+      "id": "rory-rogers-sr",
+      "name": "Rory Rogers Sr.",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2 1/2",
+          "unit": "oz",
+          "item": "whiskey"
+        },
+        {
+          "amount": "0.4",
+          "unit": "oz",
+          "item": "grenadine"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "amaretto"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "Jägermeister"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "cherry bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Black Forest cake",
+        "foodQuery": "black forest cake",
+        "draft": true
+      },
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "cherry-bourbon-lemonade",
+      "name": "Cherry Bourbon Lemonade",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2 1/2",
+          "unit": "oz",
+          "item": "Maker's Mark"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "amaretto"
+        },
+        {
+          "amount": "Dash",
+          "unit": "of",
+          "item": "cherry and chocolate bitters"
+        },
+        {
+          "amount": "Juice of 1/2",
+          "unit": "",
+          "item": "lemon"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "BBQ ribs",
+        "foodQuery": "bbq ribs",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "lava-juice",
+      "name": "Lava Juice",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Highball glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "6",
+          "unit": "",
+          "item": "mint leaves, muddled"
+        },
+        {
+          "amount": "2",
+          "unit": "",
+          "item": "lemon wedges, muddled"
+        },
+        {
+          "amount": "3",
+          "unit": "",
+          "item": "blackberries, muddled"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "lime juice"
+        },
+        {
+          "amount": "3",
+          "unit": "oz",
+          "item": "bourbon"
+        },
+        {
+          "amount": "Top with",
+          "unit": "",
+          "item": "ginger beer"
+        }
+      ],
+      "steps": [
+        "Muddle the mint, lemon wedges, and blackberries.",
+        "Add the lime juice and bourbon.",
+        "Top with ginger beer."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Pulled pork sandwiches with slaw",
+        "foodQuery": "pulled pork sandwich slaw",
+        "draft": true
+      },
+      "tags": [
+        "Fizzy",
+        "Bright"
+      ]
+    },
+    {
+      "id": "yes-yes",
+      "name": "Yes Yes",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Champagne flute",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "lemon juice"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "simple syrup"
+        },
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "Top with",
+          "unit": "",
+          "item": "Martini & Rossi sparkling wine"
+        }
+      ],
+      "steps": [
+        "Shake the lemon juice, simple syrup, and gin with ice.",
+        "Top with Martini & Rossi sparkling wine."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Gougères",
+        "foodQuery": "gougeres",
+        "draft": true
+      },
+      "tags": [
+        "Fizzy",
+        "Bright"
+      ]
+    },
+    {
+      "id": "go-dbacks",
+      "name": "Go Dbacks",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "Juice of 1",
+          "unit": "",
+          "item": "lime"
+        },
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "white rum"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "triple sec"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "grenadine"
+        },
+        {
+          "amount": "A dash or two",
+          "unit": "of",
+          "item": "orange bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Sonoran hot dogs",
+        "foodQuery": "sonoran hot dog",
+        "draft": true
+      },
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "cherry-tokyo-manhattan",
+      "name": "Cherry Tokyo Manhattan",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2 1/4",
+          "unit": "oz",
+          "item": "Japanese whiskey"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "extra dry or dry vermouth"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "amaretto"
+        },
+        {
+          "amount": "2",
+          "unit": "dashes",
+          "item": "Angostura bitters"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "Luxardo cherries, for garnish"
+        }
+      ],
+      "steps": [
+        "Garnish with Luxardo cherries."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Chicken yakitori",
+        "foodQuery": "chicken yakitori",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "tequila-sunset",
+      "name": "Tequila Sunset",
+      "pack": "starter",
+      "spirit": "Tequila",
+      "glass": "Highball glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "tequila"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "orange juice"
+        },
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "pineapple juice"
+        },
+        {
+          "amount": "1-2",
+          "unit": "dashes each of",
+          "item": "cherry and orange bitters"
+        },
+        {
+          "amount": "1 small",
+          "unit": "spoonful of",
+          "item": "grenadine"
+        }
+      ],
+      "steps": [
+        "Shake and pour.",
+        "Drop in a small spoonful of grenadine."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Chicken tinga tostadas",
+        "foodQuery": "chicken tinga tostadas",
+        "draft": true
+      },
+      "tags": [
+        "Sweet",
+        "Bright"
+      ]
+    },
+    {
+      "id": "jamaican-sunset",
+      "name": "Jamaican Sunset",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "white rum"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Jägermeister"
+        },
+        {
+          "amount": "0.8",
+          "unit": "oz",
+          "item": "pineapple juice"
+        },
+        {
+          "amount": "1/3",
+          "unit": "oz",
+          "item": "orange juice"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "orange bitters"
+        },
+        {
+          "amount": "Splash",
+          "unit": "of",
+          "item": "grenadine"
+        }
+      ],
+      "steps": [
+        "Shake and serve in a coupe glass."
+      ],
+      "notes": "Increase the juice ratios for a lighter drink.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Jamaican beef patties",
+        "foodQuery": "jamaican beef patties",
+        "draft": true
+      },
+      "tags": [
+        "Sweet",
+        "Bright"
+      ]
+    },
+    {
+      "id": "drunk-pirates-of-the-caribbean",
+      "name": "Drunk Pirates of the Caribbean",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "white rum"
+        },
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "pineapple juice (add more if desired)"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "amaro"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Angostura bitters, on top"
+        }
+      ],
+      "steps": [
+        "Finish with a couple dashes of Angostura bitters on top."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Coconut shrimp with sweet chili sauce",
+        "foodQuery": "coconut shrimp",
+        "draft": true
+      },
+      "tags": [
+        "Bright"
+      ]
+    },
+    {
+      "id": "japanese-valentine",
+      "name": "Japanese Valentine",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Martini glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2 1/2",
+          "unit": "oz",
+          "item": "Japanese whiskey"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "elderflower liqueur"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "sweet vermouth"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "Luxardo cherry, for the bottom of the glass"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "cranberry bitters"
+        }
+      ],
+      "steps": [
+        "Serve in a martini glass with a Luxardo cherry at the bottom."
+      ],
+      "notes": "The cranberry bitters add color and taste.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Strawberry mochi",
+        "foodQuery": "strawberry mochi",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "the-wow",
+      "name": "The Wow",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Mug",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "whiskey (Maker's Mark bourbon)"
+        },
+        {
+          "amount": "1-3",
+          "unit": "oz",
+          "item": "coffee, whatever you prefer"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Baileys"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Kahlúa"
+        },
+        {
+          "amount": "2",
+          "unit": "dashes",
+          "item": "chocolate bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Cinnamon rolls",
+        "foodQuery": "cinnamon rolls",
+        "draft": true
+      },
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "same-same-but-different",
+      "name": "Same Same but Different",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Martini glass",
+      "serves": 2,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "5",
+          "unit": "oz",
+          "item": "Tincup whiskey"
+        },
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "amaretto"
+        },
+        {
+          "amount": "1.2",
+          "unit": "oz",
+          "item": "sweet vermouth"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "cherry bitters"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "Luxardo cherry, for the bottom of each glass"
+        }
+      ],
+      "steps": [
+        "Serve in martini glasses with a Luxardo cherry at the bottom of each."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Dark chocolate almond bark",
+        "foodQuery": "dark chocolate almond bark",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "best-old-fashioned",
+      "name": "Best Old Fashioned",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2 1/2",
+          "unit": "oz",
+          "item": "whiskey"
+        },
+        {
+          "amount": "About 1/4",
+          "unit": "oz",
+          "item": "simple syrup"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Angostura and orange bitters"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "cherry, muddled at the bottom of the glass"
+        }
+      ],
+      "steps": [
+        "Muddle the cherry at the bottom of the glass."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Blue cheese burger",
+        "foodQuery": "blue cheese burger",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "earl-grey",
+      "name": "Earl Grey",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "strong Earl Grey tea"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "lemon juice"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "simple syrup"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Honey madeleines",
+        "foodQuery": "honey madeleines",
+        "draft": true
+      },
+      "tags": [
+        "Bright",
+        "Cozy"
+      ]
+    },
+    {
+      "id": "godmother",
+      "name": "Godmother",
+      "pack": "starter",
+      "spirit": "Brandy",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "part",
+          "item": "cognac"
+        },
+        {
+          "amount": "1",
+          "unit": "part",
+          "item": "amaretto"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "Luxardo cherry, for garnish"
+        }
+      ],
+      "steps": [
+        "Garnish with a Luxardo cherry."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Poached pears with almonds",
+        "foodQuery": "poached pears",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "light-breeze",
+      "name": "Light Breeze",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Martini glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "Lillet"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "extra dry vermouth"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Angostura bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Smoked trout on cucumber rounds",
+        "foodQuery": "smoked trout cucumber",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "scarlet-negroni",
+      "name": "Scarlet Negroni",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "part",
+          "item": "gin"
+        },
+        {
+          "amount": "1",
+          "unit": "part",
+          "item": "Aperol"
+        },
+        {
+          "amount": "1",
+          "unit": "part",
+          "item": "extra dry vermouth"
+        }
+      ],
+      "steps": [],
+      "notes": "Equal parts of each.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Margherita pizza",
+        "foodQuery": "margherita pizza",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "purple-haze",
+      "name": "Purple Haze",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Highball glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2 1/2",
+          "unit": "oz",
+          "item": "dark rum"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "lime juice"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "grenadine"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "blue curaçao"
+        },
+        {
+          "amount": "Dashes",
+          "unit": "of",
+          "item": "orange and Peychaud's bitters"
+        }
+      ],
+      "steps": [
+        "Serve in a highball glass with ice."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Pineapple fried rice",
+        "foodQuery": "pineapple fried rice",
+        "draft": true
+      },
+      "tags": [
+        "Sweet",
+        "Bright"
+      ]
+    },
+    {
+      "id": "irish-manhattan",
+      "name": "Irish Manhattan",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "3",
+          "unit": "oz",
+          "item": "Jameson"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "sweet vermouth"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "Maraschino liqueur"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Shepherd's pie",
+        "foodQuery": "shepherds pie",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "mom-sipper",
+      "name": "Mom Sipper",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Highball glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "elderflower liqueur"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "grapefruit juice"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "orange bitters"
+        },
+        {
+          "amount": "Top with",
+          "unit": "",
+          "item": "San Pellegrino"
+        }
+      ],
+      "steps": [
+        "Top with San Pellegrino."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Chicken salad croissants",
+        "foodQuery": "chicken salad croissant",
+        "draft": true
+      },
+      "tags": [
+        "Fizzy",
+        "Bright"
+      ]
+    },
+    {
+      "id": "amaro-manhattan",
+      "name": "Amaro Manhattan",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "rye whiskey"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Averna Amaro"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "dry vermouth"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Peychaud's and Angostura bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "This one is really good.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Mushroom risotto",
+        "foodQuery": "mushroom risotto",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "red-snapper-cocktail",
+      "name": "Red Snapper Cocktail",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "1-2",
+          "unit": "oz",
+          "item": "whiskey, depending on desired strength"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "amaretto"
+        },
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "cranberry juice"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "orange bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Cranberry-glazed pork tenderloin",
+        "foodQuery": "cranberry pork tenderloin",
+        "draft": true
+      },
+      "tags": [
+        "Bright"
+      ]
+    },
+    {
+      "id": "biscotti-2-0",
+      "name": "Biscotti 2.0",
+      "pack": "starter",
+      "spirit": "Brandy",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Salignac cognac"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Aberfeldy 12-year scotch whisky"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Averna Amaro"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Angostura and Peychaud's bitters"
+        }
+      ],
+      "steps": [
+        "Stir with an ice ball."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Aged gouda and dark chocolate",
+        "foodQuery": "gouda dark chocolate board",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "red-girl",
+      "name": "Red Girl",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Martini glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "gin (vodka probably works too)"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "elderflower liqueur"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "red vermouth (vermouth rouge)"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Angostura and cranberry bitters"
+        }
+      ],
+      "steps": [
+        "Shake and serve up."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Beet and goat cheese salad",
+        "foodQuery": "beet goat cheese salad",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "uk-sour",
+      "name": "UK Sour",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "fresh lemon juice"
+        },
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "Suntory Japanese whiskey"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "cinnamon or pumpkin spice seasoning"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "elderflower liqueur"
+        },
+        {
+          "amount": "1-2 small",
+          "unit": "spoonfuls of",
+          "item": "simple syrup"
+        },
+        {
+          "amount": "Float",
+          "unit": "",
+          "item": "red wine (Campo Viejo works well)"
+        }
+      ],
+      "steps": [
+        "Shake and pour into an old fashioned glass with an ice ball.",
+        "Top with a red wine float."
+      ],
+      "notes": "Amazing. One small lemon makes enough juice for 2 drinks. The spice really works.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Beef bourguignon",
+        "foodQuery": "beef bourguignon",
+        "draft": true
+      },
+      "tags": [
+        "Bright",
+        "Cozy"
+      ]
+    },
+    {
+      "id": "thanksgiving-2020",
+      "name": "Thanksgiving 2020",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "Japanese whiskey"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "amaro"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Angostura and Peychaud's bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Roast turkey with herb gravy",
+        "foodQuery": "roast turkey herb gravy",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "peppermintini",
+      "name": "Peppermintini",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Martini glass",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "vodka"
+        },
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "peppermint schnapps"
+        },
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "crème de cacao (homemade white chocolate liqueur works as a substitute)"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "milk"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Chocolate peppermint bark",
+        "foodQuery": "peppermint bark",
+        "draft": true
+      },
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "peppermint-rye",
+      "name": "Peppermint Rye",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "rye whiskey"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "cognac"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "peppermint schnapps"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "chocolate bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Gingerbread cookies",
+        "foodQuery": "gingerbread cookies",
+        "draft": true
+      },
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "raspberry-candy",
+      "name": "Raspberry Candy",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "vodka"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "lemon juice"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Chambord raspberry liqueur"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "elderflower liqueur"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Raspberry lemon bars",
+        "foodQuery": "raspberry lemon bars",
+        "draft": true
+      },
+      "tags": [
+        "Sweet",
+        "Bright"
+      ]
+    },
+    {
+      "id": "chocolate-dessert",
+      "name": "Chocolate Dessert",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Martini glass",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "vodka"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "Baileys Irish cream"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "Godiva chocolate liqueur"
+        },
+        {
+          "amount": "1/3",
+          "unit": "oz",
+          "item": "amaretto"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "chocolate bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Chocolate lava cakes",
+        "foodQuery": "chocolate lava cake",
+        "draft": true
+      },
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "raspberry-sunset",
+      "name": "Raspberry Sunset",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "vodka"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Chambord raspberry liqueur"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Averna Amaro"
+        },
+        {
+          "amount": "1/4",
+          "unit": "oz",
+          "item": "dry vermouth"
+        },
+        {
+          "amount": "Dashes",
+          "unit": "of",
+          "item": "Peychaud's bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Goat cheese crostini with raspberry jam",
+        "foodQuery": "goat cheese raspberry jam crostini",
+        "draft": true
+      },
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "herbal-hybrid",
+      "name": "Herbal Hybrid",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "whiskey or vodka"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Averna Amaro"
+        },
+        {
+          "amount": "1/3",
+          "unit": "oz",
+          "item": "red vermouth"
+        },
+        {
+          "amount": "0.2",
+          "unit": "oz",
+          "item": "simple syrup"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Angostura bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Herb-crusted lamb chops",
+        "foodQuery": "herb crusted lamb chops",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "arizona-sunset",
+      "name": "Arizona Sunset",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Champagne flute",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "elderflower liqueur"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Aperol"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "lemon juice"
+        },
+        {
+          "amount": "Top with",
+          "unit": "",
+          "item": "something bubbly (champagne or other sparkling wine)"
+        }
+      ],
+      "steps": [
+        "Top with something bubbly."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Arugula and grapefruit salad",
+        "foodQuery": "arugula grapefruit salad",
+        "draft": true
+      },
+      "tags": [
+        "Fizzy",
+        "Bright"
+      ]
+    },
+    {
+      "id": "sweet-spruce",
+      "name": "Sweet Spruce",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "2 1/4",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "red vermouth"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Averna Amaro"
+        },
+        {
+          "amount": "Dashes",
+          "unit": "of",
+          "item": "Angostura bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Rosemary garlic roast potatoes",
+        "foodQuery": "rosemary roasted potatoes",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "tea-party",
+      "name": "Tea Party",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Teacup",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "About 6",
+          "unit": "oz",
+          "item": "chai or minty tea"
+        },
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "simple syrup"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Angostura bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "The 3rd anniversary cocktail. Made with North African Mint tea from David's Tea.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Pistachio baklava",
+        "foodQuery": "baklava",
+        "draft": true
+      },
+      "tags": [
+        "Bold",
+        "Cozy"
+      ]
+    },
+    {
+      "id": "new-glasses",
+      "name": "New Glasses",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "bourbon"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "sweet vermouth"
+        },
+        {
+          "amount": "1",
+          "unit": "dash",
+          "item": "absinthe"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "Angostura and Peychaud's bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Oysters Rockefeller",
+        "foodQuery": "oysters rockefeller",
+        "draft": true
+      },
+      "tags": [
+        "Bold"
+      ]
+    },
+    {
+      "id": "irish-eyes",
+      "name": "Irish Eyes",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "1-2",
+          "unit": "oz",
+          "item": "Irish whiskey"
+        },
+        {
+          "amount": "1/4-1/2",
+          "unit": "oz",
+          "item": "crème de menthe"
+        },
+        {
+          "amount": "2-4",
+          "unit": "oz",
+          "item": "cream or milk"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "green food coloring"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Mint chocolate brownies",
+        "foodQuery": "mint chocolate brownies",
+        "draft": true
+      },
+      "tags": [
+        "Sweet"
+      ]
+    },
+    {
+      "id": "ruby-paloma",
+      "name": "Ruby Paloma",
+      "pack": "starter",
+      "spirit": "Tequila",
+      "glass": "Highball glass",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Deep Eddy Ruby Red"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "tequila"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "pear juice and simple syrup"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "lemon ice cube"
+        },
+        {
+          "amount": "Top with",
+          "unit": "",
+          "item": "grapefruit White Claw"
+        }
+      ],
+      "steps": [
+        "Top with grapefruit White Claw."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Mango salsa with tortilla chips",
+        "foodQuery": "mango salsa",
+        "draft": true
+      },
+      "tags": [
+        "Fizzy",
+        "Bright"
+      ]
+    },
+    {
+      "id": "tequila-whiskey-sour",
+      "name": "Tequila Whiskey Sour",
+      "pack": "starter",
+      "spirit": "Tequila",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "1-2",
+          "unit": "oz",
+          "item": "tequila"
+        },
+        {
+          "amount": "1-2",
+          "unit": "oz",
+          "item": "whiskey"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "lime juice"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "simple syrup"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "Angostura bitters"
+        }
+      ],
+      "steps": [],
+      "notes": "Actually good. Equal parts tequila and whiskey.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Smoked brisket nachos",
+        "foodQuery": "brisket nachos",
+        "draft": true
+      },
+      "tags": [
+        "Bright"
+      ]
+    },
+    {
+      "id": "it-was-yummy",
+      "name": "It Was Yummy!",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Highball glass",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "1",
+          "unit": "can",
+          "item": "seltzer"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "vodka"
+        },
+        {
+          "amount": "1",
+          "unit": "cup",
+          "item": "frozen fruit"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "simple syrup"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "lemon juice"
+        }
+      ],
+      "steps": [
+        "Blend everything."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Grilled chicken salad with citrus vinaigrette",
+        "foodQuery": "grilled chicken salad citrus vinaigrette",
+        "draft": true
+      },
+      "tags": [
+        "Fizzy",
+        "Bright"
+      ]
+    },
+    {
+      "id": "arizona-sipper",
+      "name": "Arizona Sipper",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Highball glass",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "1-2",
+          "unit": "oz",
+          "item": "grapefruit vodka, depending on how strong"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "elderflower liqueur"
+        },
+        {
+          "amount": "1/4",
+          "unit": "oz",
+          "item": "Aperol"
+        },
+        {
+          "amount": "Top with",
+          "unit": "",
+          "item": "club soda"
+        }
+      ],
+      "steps": [
+        "Top with club soda."
+      ],
+      "notes": "Made with watermelon-flavored club soda and it was yummy.",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Watermelon feta salad with mint",
+        "foodQuery": "watermelon feta salad",
+        "draft": true
+      },
+      "tags": [
+        "Fizzy"
+      ]
+    },
+    {
+      "id": "cancer-free",
+      "name": "Cancer Free",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Coupe",
+      "serves": 1,
+      "year": 2021,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "Hawaiian white rum"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "tart cherry juice"
+        },
+        {
+          "amount": "1/2 or 1",
+          "unit": "oz",
+          "item": "lime juice"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "triple sec"
+        },
+        {
+          "amount": "0.4",
+          "unit": "oz",
+          "item": "simple syrup"
+        }
+      ],
+      "steps": [],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Ahi poke bowl",
+        "foodQuery": "ahi poke bowl",
+        "draft": true
+      },
+      "tags": [
+        "Bright"
+      ]
+    },
+    {
+      "id": "the-cranapple",
+      "name": "The CranApple",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "1-2",
+          "unit": "oz",
+          "item": "Crown Royal Apple whiskey"
+        },
+        {
+          "amount": "Juice of 1/2",
+          "unit": "",
+          "item": "lime (about 1 oz)"
+        },
+        {
+          "amount": "4",
+          "unit": "oz",
+          "item": "cranberry juice"
+        }
+      ],
+      "steps": [
+        "Serve on the rocks."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Apple cheddar grilled cheese",
+        "foodQuery": "apple cheddar grilled cheese",
+        "draft": true
+      },
+      "tags": [
+        "Bright"
+      ]
+    },
+    {
+      "id": "spiced-margarita",
+      "name": "Spiced Margarita",
+      "pack": "starter",
+      "spirit": "Tequila",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "year": 2020,
+      "ingredients": [
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "tequila"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "simple syrup (add more for sweetness if desired)"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "lime juice"
+        },
+        {
+          "amount": "A couple",
+          "unit": "dashes of",
+          "item": "orange and Angostura bitters"
+        }
+      ],
+      "steps": [
+        "Serve on the rocks."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "",
+          "artist": ""
+        },
+        "food": "Chili-lime chicken wings",
+        "foodQuery": "chili lime chicken wings",
+        "draft": true
+      },
+      "tags": [
+        "Bright"
+      ]
     },
     {
       "id": "negroni",
@@ -87,22 +4373,230 @@ Move this block to recipes.json later. One recipe = one object.
       "pack": "starter",
       "spirit": "Gin",
       "glass": "Rocks glass",
+      "serves": 1,
       "ingredients": [
-        { "amount": "1", "unit": "oz", "item": "gin" },
-        { "amount": "1", "unit": "oz", "item": "Campari" },
-        { "amount": "1", "unit": "oz", "item": "sweet vermouth" },
-        { "amount": "1", "unit": "", "item": "orange slice" }
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Campari"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "sweet vermouth"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "orange peel, for garnish"
+        }
       ],
       "steps": [
-        "Stir gin, Campari, and vermouth with ice for 20 seconds.",
+        "Stir the gin, Campari, and vermouth with ice.",
         "Strain over fresh ice in a rocks glass.",
-        "Garnish with an orange slice."
+        "Express an orange peel over the drink and drop it in."
       ],
-      "notes": "Sample note: equal parts, so it is easy to scale for a crowd.",
+      "notes": "Equal parts of each.",
       "pairings": {
-        "song": { "title": "Sample Song", "artist": "Sample Artist" },
-        "food": "Sample pairing: olives, salami, sharp cheese"
-      }
+        "song": {
+          "title": "Sway",
+          "artist": "Dean Martin"
+        },
+        "food": "Antipasto board with salami and olives",
+        "foodQuery": "antipasto board",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Bold"
+      ]
+    },
+    {
+      "id": "old-fashioned",
+      "name": "Old Fashioned",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "bourbon or rye"
+        },
+        {
+          "amount": "1/4",
+          "unit": "oz",
+          "item": "simple syrup (or 1 sugar cube)"
+        },
+        {
+          "amount": "2",
+          "unit": "dashes",
+          "item": "Angostura bitters"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "orange peel"
+        }
+      ],
+      "steps": [
+        "Stir the whiskey, syrup, and bitters with ice.",
+        "Strain over a large ice cube in a rocks glass.",
+        "Express an orange peel over the drink and drop it in."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Blue in Green",
+          "artist": "Miles Davis"
+        },
+        "food": "Pan-seared steak with peppercorn sauce",
+        "foodQuery": "steak peppercorn sauce",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Bold"
+      ]
+    },
+    {
+      "id": "manhattan",
+      "name": "Manhattan",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Coupe",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "rye whiskey"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "sweet vermouth"
+        },
+        {
+          "amount": "2",
+          "unit": "dashes",
+          "item": "Angostura bitters"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "cherry, for garnish"
+        }
+      ],
+      "steps": [
+        "Stir with ice and strain into a chilled coupe.",
+        "Garnish with a cherry."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Take the 'A' Train",
+          "artist": "Duke Ellington"
+        },
+        "food": "Roasted mushroom crostini",
+        "foodQuery": "mushroom crostini",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Bold"
+      ]
+    },
+    {
+      "id": "martini",
+      "name": "Martini",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Martini glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2 1/2",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "dry vermouth"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "lemon twist or olive, for garnish"
+        }
+      ],
+      "steps": [
+        "Stir with ice and strain into a chilled martini glass.",
+        "Garnish with a lemon twist or an olive."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Smooth Operator",
+          "artist": "Sade"
+        },
+        "food": "Shrimp cocktail",
+        "foodQuery": "shrimp cocktail",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Bold"
+      ]
+    },
+    {
+      "id": "gimlet",
+      "name": "Gimlet",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Coupe",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "lime juice"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "simple syrup"
+        }
+      ],
+      "steps": [
+        "Shake with ice and strain into a chilled coupe."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Summer Breeze",
+          "artist": "Seals and Crofts"
+        },
+        "food": "Cucumber tea sandwiches",
+        "foodQuery": "cucumber tea sandwiches",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Bright"
+      ]
     },
     {
       "id": "daiquiri",
@@ -110,20 +4604,560 @@ Move this block to recipes.json later. One recipe = one object.
       "pack": "starter",
       "spirit": "Rum",
       "glass": "Coupe",
+      "serves": 1,
       "ingredients": [
-        { "amount": "2", "unit": "oz", "item": "white rum" },
-        { "amount": "1", "unit": "oz", "item": "fresh lime juice" },
-        { "amount": "3/4", "unit": "oz", "item": "simple syrup" }
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "white rum"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "lime juice"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "simple syrup"
+        }
       ],
       "steps": [
-        "Add everything to a shaker with ice and shake hard for 12 seconds.",
-        "Strain into a chilled coupe."
+        "Shake hard with ice and strain into a chilled coupe."
       ],
-      "notes": "Sample note: taste and adjust the syrup to your limes.",
+      "notes": "",
       "pairings": {
-        "song": { "title": "Sample Song", "artist": "Sample Artist" },
-        "food": "Sample pairing: fish tacos"
-      }
+        "song": {
+          "title": "Dos Gardenias",
+          "artist": "Buena Vista Social Club"
+        },
+        "food": "Cuban sandwich",
+        "foodQuery": "cuban sandwich",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Bright"
+      ]
+    },
+    {
+      "id": "margarita",
+      "name": "Margarita",
+      "pack": "starter",
+      "spirit": "Tequila",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "tequila"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Cointreau"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "lime juice"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "salt, for the rim (optional)"
+        }
+      ],
+      "steps": [
+        "Shake with ice and strain over fresh ice in a rocks glass."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Tequila",
+          "artist": "The Champs"
+        },
+        "food": "Chips and fresh guacamole",
+        "foodQuery": "guacamole",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Bright"
+      ]
+    },
+    {
+      "id": "whiskey-sour",
+      "name": "Whiskey Sour",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "bourbon"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "lemon juice"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "simple syrup"
+        }
+      ],
+      "steps": [
+        "Shake with ice and strain over fresh ice in a rocks glass."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Midnight Rider",
+          "artist": "The Allman Brothers Band"
+        },
+        "food": "Buttermilk fried chicken",
+        "foodQuery": "buttermilk fried chicken",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Bright"
+      ]
+    },
+    {
+      "id": "moscow-mule",
+      "name": "Moscow Mule",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Copper mug",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "vodka"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "lime juice"
+        },
+        {
+          "amount": "4",
+          "unit": "oz",
+          "item": "ginger beer, to top"
+        }
+      ],
+      "steps": [
+        "Fill a mug with ice and add the vodka and lime juice.",
+        "Top with ginger beer."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Back in the U.S.S.R.",
+          "artist": "The Beatles"
+        },
+        "food": "Soft pretzels with beer cheese",
+        "foodQuery": "soft pretzels beer cheese",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Fizzy",
+        "Bright"
+      ]
+    },
+    {
+      "id": "paloma",
+      "name": "Paloma",
+      "pack": "starter",
+      "spirit": "Tequila",
+      "glass": "Highball glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "tequila"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "lime juice"
+        },
+        {
+          "amount": "3-4",
+          "unit": "oz",
+          "item": "grapefruit soda, to top"
+        },
+        {
+          "amount": "1",
+          "unit": "pinch",
+          "item": "salt"
+        }
+      ],
+      "steps": [
+        "Add the tequila, lime juice, and salt to an ice-filled highball glass.",
+        "Top with grapefruit soda."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Volver, Volver",
+          "artist": "Vicente Fernández"
+        },
+        "food": "Fish tacos with cabbage slaw",
+        "foodQuery": "fish tacos",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Fizzy",
+        "Bright"
+      ]
+    },
+    {
+      "id": "mojito",
+      "name": "Mojito",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Highball glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "white rum"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "lime juice"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "simple syrup"
+        },
+        {
+          "amount": "6-8",
+          "unit": "",
+          "item": "mint leaves"
+        },
+        {
+          "amount": "",
+          "unit": "",
+          "item": "club soda, to top"
+        }
+      ],
+      "steps": [
+        "Gently muddle the mint with the syrup and lime juice.",
+        "Add the rum and ice, then top with club soda."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Bamboleo",
+          "artist": "Gipsy Kings"
+        },
+        "food": "Ceviche",
+        "foodQuery": "ceviche",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Fizzy",
+        "Bright"
+      ]
+    },
+    {
+      "id": "aperol-spritz",
+      "name": "Aperol Spritz",
+      "pack": "starter",
+      "spirit": "Aperitivo",
+      "glass": "Wine glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "3",
+          "unit": "oz",
+          "item": "prosecco"
+        },
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "Aperol"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "soda water"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "orange slice, for garnish"
+        }
+      ],
+      "steps": [
+        "Build over ice in a wine glass.",
+        "Garnish with an orange slice."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Volare (Nel blu dipinto di blu)",
+          "artist": "Domenico Modugno"
+        },
+        "food": "Bruschetta",
+        "foodQuery": "bruschetta",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Fizzy"
+      ]
+    },
+    {
+      "id": "espresso-martini",
+      "name": "Espresso Martini",
+      "pack": "starter",
+      "spirit": "Vodka",
+      "glass": "Martini glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "vodka"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "coffee liqueur"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "fresh espresso"
+        },
+        {
+          "amount": "3",
+          "unit": "",
+          "item": "coffee beans, for garnish"
+        }
+      ],
+      "steps": [
+        "Shake hard with ice and strain into a chilled martini glass.",
+        "Garnish with three coffee beans."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Don't Stop 'Til You Get Enough",
+          "artist": "Michael Jackson"
+        },
+        "food": "Tiramisu",
+        "foodQuery": "tiramisu",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Bold",
+        "Cozy"
+      ]
+    },
+    {
+      "id": "boulevardier",
+      "name": "Boulevardier",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Rocks glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "1 1/2",
+          "unit": "oz",
+          "item": "bourbon or rye"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "Campari"
+        },
+        {
+          "amount": "1",
+          "unit": "oz",
+          "item": "sweet vermouth"
+        },
+        {
+          "amount": "1",
+          "unit": "",
+          "item": "orange peel, for garnish"
+        }
+      ],
+      "steps": [
+        "Stir with ice and strain over fresh ice in a rocks glass.",
+        "Garnish with an orange peel."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "La Vie en Rose",
+          "artist": "Édith Piaf"
+        },
+        "food": "French onion soup",
+        "foodQuery": "french onion soup",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Bold"
+      ]
+    },
+    {
+      "id": "paper-plane",
+      "name": "Paper Plane",
+      "pack": "starter",
+      "spirit": "Whiskey",
+      "glass": "Coupe",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "bourbon"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "Aperol"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "Amaro Nonino"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "lemon juice"
+        }
+      ],
+      "steps": [
+        "Shake with ice and strain into a chilled coupe."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Come Fly with Me",
+          "artist": "Frank Sinatra"
+        },
+        "food": "Prosciutto and melon",
+        "foodQuery": "prosciutto melon",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Bright"
+      ]
+    },
+    {
+      "id": "last-word",
+      "name": "Last Word",
+      "pack": "starter",
+      "spirit": "Gin",
+      "glass": "Coupe",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "gin"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "green Chartreuse"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "Maraschino liqueur"
+        },
+        {
+          "amount": "3/4",
+          "unit": "oz",
+          "item": "lime juice"
+        }
+      ],
+      "steps": [
+        "Shake with ice and strain into a chilled coupe."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Minnie the Moocher",
+          "artist": "Cab Calloway"
+        },
+        "food": "Deviled eggs",
+        "foodQuery": "deviled eggs",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Bright"
+      ]
+    },
+    {
+      "id": "dark-n-stormy",
+      "name": "Dark 'n' Stormy",
+      "pack": "starter",
+      "spirit": "Rum",
+      "glass": "Highball glass",
+      "serves": 1,
+      "ingredients": [
+        {
+          "amount": "2",
+          "unit": "oz",
+          "item": "dark rum"
+        },
+        {
+          "amount": "1/2",
+          "unit": "oz",
+          "item": "lime juice"
+        },
+        {
+          "amount": "4",
+          "unit": "oz",
+          "item": "ginger beer, to top"
+        }
+      ],
+      "steps": [
+        "Fill a highball glass with ice and add the rum and lime juice.",
+        "Top with ginger beer."
+      ],
+      "notes": "",
+      "pairings": {
+        "song": {
+          "title": "Stormy Weather",
+          "artist": "Lena Horne"
+        },
+        "food": "Jerk chicken",
+        "foodQuery": "jerk chicken",
+        "draft": true
+      },
+      "tags": [
+        "Classics",
+        "Fizzy",
+        "Bright"
+      ]
     }
   ]
 }
@@ -132,35 +5166,71 @@ Move this block to recipes.json later. One recipe = one object.
 <script>
 const DATA = JSON.parse(document.getElementById('data').textContent);
 const app = document.getElementById('app');
-const ACCENT = {Whiskey:'#B5651D', Gin:'#2E7D6B', Rum:'#C9871F', Tequila:'#7A9A2E', Vodka:'#4A6FA5', Other:'#8A5A83'};
+const ACCENT = {Whiskey:'#B5651D', Gin:'#2E7D6B', Rum:'#C9871F', Tequila:'#7A9A2E', Vodka:'#4A6FA5', Mezcal:'#C2552B', Amaro:'#8C3B3B', Aquavit:'#3E8E9E', Other:'#8A5A83'};
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let query = '', spirit = 'All';
+const MAIN = ['Whiskey','Gin','Rum','Vodka','Tequila'];
+const CELLAR = 'The Cellar';
+const TAGS = ['Classics','Bold','Sweet','Bright','Fizzy','Cozy'];
+let query = '', spirit = 'All', tag = null;
+function inCellar(r){ return !MAIN.includes(r.spirit); }
 
 function accent(r){ return ACCENT[r.spirit] || ACCENT.Other; }
+function metaLine(r){ return [r.spirit, r.glass, r.serves > 1 ? 'Serves ' + r.serves : '', r.year || ''].filter(Boolean).map(esc).join(' &middot; '); }
+function pairLines(r){
+  const p = r.pairings || {}; let h = '';
+  if (p.song && p.song.title) h += `<span><b>Listen:</b> ${esc(p.song.title)}${p.song.artist ? ', ' + esc(p.song.artist) : ''}</span>`;
+  if (p.food) h += `<span><b>Eat:</b> ${esc(p.food)}</span>`;
+  return h;
+}
+function pairBox(r){
+  const p = r.pairings || {}; let h = '';
+  const ext = 'target="_blank" rel="noopener"';
+  if (p.song && p.song.title) {
+    const shown = p.song.title + (p.song.artist ? ', ' + p.song.artist : '');
+    const plain = p.song.title + (p.song.artist ? ' - ' + p.song.artist : '');
+    const q = encodeURIComponent(p.song.title + ' ' + (p.song.artist || ''));
+    h += `<div><small>Song</small><span class="pt">${esc(shown)}</span><span class="links">
+      <button type="button" class="mini" data-copy="${esc(plain)}">Copy</button>
+      <a class="mini" ${ext} href="https://www.youtube.com/results?search_query=${q}">YouTube</a>
+      <a class="mini" ${ext} href="https://open.spotify.com/search/${q}">Spotify</a>
+      <a class="mini" ${ext} href="https://music.apple.com/search?term=${q}">Apple Music</a></span></div>`;
+  }
+  if (p.food) {
+    const q = encodeURIComponent((p.foodQuery || p.food) + ' recipe');
+    h += `<div><small>Food</small><span class="pt">${esc(p.food)}</span><span class="links">
+      <a class="mini" ${ext} href="https://www.google.com/search?q=${q}">Find a recipe</a></span></div>`;
+  }
+  return h ? `<h3>Pairings${p.draft ? ' <span class="draft">draft</span>' : ''}</h3><div class="pairbox">${h}</div>` : '';
+}
 
 function renderList(){
-  const spirits = ['All', ...new Set(DATA.recipes.map(r => r.spirit))];
+  const spirits = ['All', ...MAIN.filter(s => DATA.recipes.some(r => r.spirit === s)), ...(DATA.recipes.some(inCellar) ? [CELLAR] : [])];
+  const tags = TAGS.filter(t => DATA.recipes.some(r => (r.tags || []).includes(t)));
   const q = query.toLowerCase();
   const shown = DATA.recipes.filter(r =>
-    (spirit === 'All' || r.spirit === spirit) &&
-    (!q || (r.name + ' ' + r.ingredients.map(i => i.item).join(' ') + ' ' + r.pairings.food).toLowerCase().includes(q)));
+    (spirit === 'All' || (spirit === CELLAR ? inCellar(r) : r.spirit === spirit)) &&
+    (!tag || (r.tags || []).includes(tag)) &&
+    (!q || (r.name + ' ' + r.spirit + ' ' + (r.tags || []).join(' ') + ' ' + r.ingredients.map(i => i.item).join(' ') + ' ' + ((r.pairings && r.pairings.food) || '')).toLowerCase().includes(q)));
   app.innerHTML = `
     <h1>Drink of the Day</h1>
     <p class="sub">Recipes, with a song and a bite to go with each.</p>
     <input type="search" id="q" placeholder="Search drinks or ingredients" value="${esc(query)}" aria-label="Search recipes">
-    <div class="chips">${spirits.map(s => `<button class="chip" aria-pressed="${s===spirit}" data-s="${esc(s)}">${esc(s)}</button>`).join('')}</div>
+    <div class="chips" aria-label="Filter by spirit">${spirits.map(s => `<button class="chip" aria-pressed="${s===spirit}" data-s="${esc(s)}">${esc(s)}</button>`).join('')}</div>
+    <div class="chips" aria-label="Filter by style">${tags.map(t => `<button class="chip tag" aria-pressed="${t===tag}" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>
+    ${spirit === CELLAR ? '<p class="hint">Mezcal, amaro, aquavit, brandy, and more.</p>' : ''}
     ${shown.length ? shown.map(r => `
       <button class="card" style="--accent:${accent(r)}" data-id="${esc(r.id)}">
         <h2>${esc(r.name)}</h2>
-        <div class="meta">${esc(r.spirit)} &middot; ${esc(r.glass)}</div>
+        <div class="meta">${metaLine(r)}</div>
         <div class="pair">
-          <span><b>Listen:</b> ${esc(r.pairings.song.title)}, ${esc(r.pairings.song.artist)}</span>
-          <span><b>Eat:</b> ${esc(r.pairings.food)}</span>
+          <span>${esc(r.ingredients.slice(0, 4).map(i => i.item.split(' (')[0]).join(', '))}</span>
+          ${pairLines(r)}
         </div>
-      </button>`).join('') : '<p class="empty">No drinks match. Try a different search.</p>'}`;
+      </button>`).join('') : '<p class="empty">No drinks match. Try a different search or filter.</p>'}`;
   const input = document.getElementById('q');
   input.addEventListener('input', e => { query = e.target.value; const pos = query.length; renderList(); const n = document.getElementById('q'); n.focus(); n.setSelectionRange(pos,pos); });
-  app.querySelectorAll('.chip').forEach(b => b.onclick = () => { spirit = b.dataset.s; renderList(); });
+  app.querySelectorAll('.chip[data-s]').forEach(b => b.onclick = () => { spirit = b.dataset.s; renderList(); });
+  app.querySelectorAll('.chip[data-t]').forEach(b => b.onclick = () => { tag = tag === b.dataset.t ? null : b.dataset.t; renderList(); });
   app.querySelectorAll('.card').forEach(b => b.onclick = () => { location.hash = b.dataset.id; });
 }
 
@@ -169,20 +5239,18 @@ function renderDetail(r){
     <button class="back" id="back">Back to all drinks</button>
     <article class="detail" style="--accent:${accent(r)}">
       <h1>${esc(r.name)}</h1>
-      <div class="meta">${esc(r.spirit)} &middot; ${esc(r.glass)}</div>
+      <div class="meta">${metaLine(r)}</div>
       <h3>Ingredients</h3>
       <ul class="ing">${r.ingredients.map(i => `<li><span class="amt">${esc(i.amount)} ${esc(i.unit)}</span><span>${esc(i.item)}</span></li>`).join('')}</ul>
-      <h3>Method</h3>
-      <ol>${r.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
-      <h3>My notes</h3>
-      <div class="note">${esc(r.notes)}</div>
-      <h3>Pairings</h3>
-      <div class="pairbox">
-        <div><small>Song</small>${esc(r.pairings.song.title)}, ${esc(r.pairings.song.artist)}</div>
-        <div><small>Food</small>${esc(r.pairings.food)}</div>
-      </div>
+      ${r.steps.length ? `<h3>Method</h3><ol>${r.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>` : ''}
+      ${r.notes ? `<h3>My notes</h3><div class="note">${esc(r.notes)}</div>` : ''}
+      ${pairBox(r)}
     </article>`;
   document.getElementById('back').onclick = () => { location.hash = ''; };
+  app.querySelectorAll('[data-copy]').forEach(b => b.onclick = async () => {
+    try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = 'Copied'; setTimeout(() => { b.textContent = 'Copy'; }, 1500); }
+    catch (e) { prompt('Copy this:', b.dataset.copy); }
+  });
   window.scrollTo(0,0);
 }
 
