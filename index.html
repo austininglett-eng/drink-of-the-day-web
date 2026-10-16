@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Drink of the Day</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#16324A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Drinks">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -21,10 +28,10 @@ h1{font-size:2.2rem;font-weight:700}
 input[type=search]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--paper);color:var(--ink)}
 .chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 6px}
 .chips+.chips{padding-top:0;padding-bottom:16px}
-.chip.tag[aria-pressed=true]{background:var(--citrus);color:var(--ink);border-color:var(--citrus)}
+.chip.tag[aria-pressed=true]{background:var(--citrus);color:#16324A;border-color:var(--citrus)}
 .hint{color:var(--mute);font-size:.9rem;margin:0 0 12px}
 .chip{flex:none;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:6px 14px;border-radius:999px;font:500 .9rem var(--sans);cursor:pointer}
-.chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--ice);border-color:var(--ink)}
 :focus-visible{outline:3px solid var(--citrus);outline-offset:2px}
 .card{display:block;width:100%;text-align:left;background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--accent,var(--ink));
 border-radius:6px 14px 14px 6px;padding:16px;margin-bottom:12px;cursor:pointer;color:inherit;font:inherit}
@@ -51,6 +58,28 @@ ol li{margin-bottom:8px}
 .links{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .mini{border:1px solid var(--line);background:var(--ice);color:var(--ink);padding:5px 12px;border-radius:999px;font:500 .85rem var(--sans);text-decoration:none;cursor:pointer}
 .mini:hover{border-color:var(--ink)}
+:root[data-theme=dark]{--ice:#14202B;--paper:#1E2F3E;--ink:#E8F0F2;--mute:#9DB1BF;--line:#304559}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.head .links{margin-top:6px}
+.wrap{position:relative}
+.wrap .card{padding-right:56px}
+.heart{position:absolute;top:8px;right:8px;border:0;background:none;font-size:1.6rem;line-height:1;cursor:pointer;color:var(--mute);padding:6px}
+.heart[aria-pressed=true]{color:var(--bitter)}
+.topbar{display:flex;justify-content:space-between;align-items:center}
+.topbar .heart{position:static}
+.f label{display:block;font-weight:600;margin:14px 0 4px}
+.f input,.f textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--ice);color:var(--ink)}
+.btn{border:0;border-radius:10px;padding:12px 18px;font:600 1rem var(--sans);background:var(--ink);color:var(--ice);cursor:pointer;margin-top:18px}
+.foot{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+.nudge{background:var(--paper);border:1px solid var(--citrus);border-radius:12px;padding:12px 14px;margin:0 0 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.nudge .links{margin:0}
+.mini.gear{font-size:1.15rem;line-height:1;padding:4px 11px}
+.set p{margin:6px 0}
+.ok{color:var(--mute)}
+.warn{color:var(--bitter);font-weight:600}
+.scaler{display:flex;align-items:center;gap:10px;margin:0 0 6px}
+.scaler b{min-width:1.5em;text-align:center;font-size:1.1rem}
+.legal{text-align:center;margin-top:28px}
 </style>
 </head>
 <body>
@@ -5165,12 +5194,70 @@ Move this block to recipes.json later. One recipe = one object.
 
 <script>
 const DATA = JSON.parse(document.getElementById('data').textContent);
+const BASE = DATA.recipes.slice();
+let storeOk = true;
+try { localStorage.setItem('_t', '1'); localStorage.removeItem('_t'); } catch (e) { storeOk = false; }
+try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {}
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { storeOk = false; } }
+};
+let theme = store.get('dotd-theme', null) || (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+document.documentElement.dataset.theme = theme;
+let FAVS = new Set(store.get('dotd-favs', []));
+let MINE = store.get('dotd-mine', []);
+let onlyFavs = false;
+function rebuild(){ DATA.recipes = BASE.concat(MINE); }
+rebuild();
+const heart = id => FAVS.has(id) ? '\u2665' : '\u2661';
+function favBtn(r){ return `<button type="button" class="heart" data-fav="${esc(r.id)}" aria-pressed="${FAVS.has(r.id)}" aria-label="Save ${esc(r.name)} to Bar Cart">${heart(r.id)}</button>`; }
+function bindHearts(){
+  app.querySelectorAll('[data-fav]').forEach(b => b.onclick = e => {
+    e.stopPropagation(); const id = b.dataset.fav;
+    FAVS.has(id) ? FAVS.delete(id) : FAVS.add(id);
+    store.set('dotd-favs', [...FAVS]);
+    if (onlyFavs && !location.hash) return renderList();
+    b.setAttribute('aria-pressed', FAVS.has(id)); b.textContent = heart(id);
+    const c = document.getElementById('barchip'); if (c) c.textContent = '\u2665 Bar Cart (' + FAVS.size + ')';
+  });
+}
+function bindTheme(){
+  const b = document.getElementById('theme'); if (!b) return;
+  b.onclick = () => { theme = theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = theme; store.set('dotd-theme', theme); b.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode'; };
+}
+function mySig(){ const s = JSON.stringify({ f: [...FAVS].sort(), m: MINE }); let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return String(h); }
+let nudgeOff = false;
+function nudgeHTML(){
+  if (nudgeOff || (!FAVS.size && !MINE.length)) return '';
+  const b = store.get('dotd-backup', null);
+  const stale = !b || b.sig !== mySig();
+  if (storeOk && !stale) return '';
+  const msg = !storeOk ? 'This browser is blocking saving (private mode?). Back up your bar so you do not lose it.'
+    : (b ? 'You have changes since your last backup.' : 'Your hearts and drinks live only on this device. Back them up so they are safe.');
+  return `<div class="nudge"><span>${msg}</span><span class="links"><button type="button" class="mini" id="nudgego">Back up now</button><button type="button" class="mini" id="nudgeno">Later</button></span></div>`;
+}
+async function backup(){
+  const json = JSON.stringify({ app: 'drink-of-the-day', saved: new Date().toISOString(), favs: [...FAVS], mine: MINE }, null, 2);
+  const name = 'drink-of-the-day-backup.json';
+  try {
+    const file = new File([json], name, { type: 'application/json' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: 'Drink of the Day backup' }); }
+    else { const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = name; a.click(); URL.revokeObjectURL(a.href); }
+    store.set('dotd-backup', { t: Date.now(), sig: mySig() });
+  } catch (e) { return; }
+  route();
+}
+function parseIng(line){
+  const m = line.trim().match(/^(\d[\d\/.\- ]*)?\s*(oz|ounces?|dashes|dash|tsp|tbsp|ml|cl|drops?|parts?|cups?|cans?|pinch)?\s*(.+)$/i);
+  return { amount: (m[1] || '').trim(), unit: (m[2] || '').trim(), item: m[3].replace(/^of\s+/i, '').trim() };
+}
 const app = document.getElementById('app');
 const ACCENT = {Whiskey:'#B5651D', Gin:'#2E7D6B', Rum:'#C9871F', Tequila:'#7A9A2E', Vodka:'#4A6FA5', Mezcal:'#C2552B', Amaro:'#8C3B3B', Aquavit:'#3E8E9E', Other:'#8A5A83'};
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const MAIN = ['Whiskey','Gin','Rum','Vodka','Tequila'];
 const CELLAR = 'The Cellar';
-const TAGS = ['Classics','Bold','Sweet','Bright','Fizzy','Cozy'];
+const TIP_URL = ''; // paste your Stripe (or Ko-fi) tip link between the quotes to show a Buy me a drink button in Settings
+const TAGS = ['Classics','Bold','Sweet','Bright','Fizzy','Cozy','Mine'];
 let query = '', spirit = 'All', tag = null;
 function inCellar(r){ return !MAIN.includes(r.spirit); }
 
@@ -5208,45 +5295,165 @@ function renderList(){
   const tags = TAGS.filter(t => DATA.recipes.some(r => (r.tags || []).includes(t)));
   const q = query.toLowerCase();
   const shown = DATA.recipes.filter(r =>
+    (!onlyFavs || FAVS.has(r.id)) &&
     (spirit === 'All' || (spirit === CELLAR ? inCellar(r) : r.spirit === spirit)) &&
     (!tag || (r.tags || []).includes(tag)) &&
     (!q || (r.name + ' ' + r.spirit + ' ' + (r.tags || []).join(' ') + ' ' + r.ingredients.map(i => i.item).join(' ') + ' ' + ((r.pairings && r.pairings.food) || '')).toLowerCase().includes(q)));
   app.innerHTML = `
-    <h1>Drink of the Day</h1>
+    <div class="head"><h1>Drink of the Day</h1><div class="links"><button type="button" class="mini" id="addbtn">+ Add drink</button><button type="button" class="mini gear" id="gear" aria-label="Settings">\u2699</button></div></div>
     <p class="sub">Recipes, with a song and a bite to go with each.</p>
+    ${nudgeHTML()}
     <input type="search" id="q" placeholder="Search drinks or ingredients" value="${esc(query)}" aria-label="Search recipes">
     <div class="chips" aria-label="Filter by spirit">${spirits.map(s => `<button class="chip" aria-pressed="${s===spirit}" data-s="${esc(s)}">${esc(s)}</button>`).join('')}</div>
-    <div class="chips" aria-label="Filter by style">${tags.map(t => `<button class="chip tag" aria-pressed="${t===tag}" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>
+    <div class="chips" aria-label="Filter by style"><button class="chip tag" id="barchip" aria-pressed="${onlyFavs}" data-bar="1">\u2665 Bar Cart (${FAVS.size})</button>${tags.map(t => `<button class="chip tag" aria-pressed="${t===tag}" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>
     ${spirit === CELLAR ? '<p class="hint">Mezcal, amaro, aquavit, brandy, and more.</p>' : ''}
     ${shown.length ? shown.map(r => `
-      <button class="card" style="--accent:${accent(r)}" data-id="${esc(r.id)}">
+      <div class="wrap"><button class="card" style="--accent:${accent(r)}" data-id="${esc(r.id)}">
         <h2>${esc(r.name)}</h2>
         <div class="meta">${metaLine(r)}</div>
         <div class="pair">
           <span>${esc(r.ingredients.slice(0, 4).map(i => i.item.split(' (')[0]).join(', '))}</span>
           ${pairLines(r)}
         </div>
-      </button>`).join('') : '<p class="empty">No drinks match. Try a different search or filter.</p>'}`;
+      </button>${favBtn(r)}</div>`).join('') : `<p class="empty">${onlyFavs ? 'Your Bar Cart is empty. Tap the heart on any drink to save it.' : 'No drinks match. Try a different search or filter.'}</p>`}
+    <p class="hint legal">21+ only. Please drink responsibly.</p>`;
   const input = document.getElementById('q');
   input.addEventListener('input', e => { query = e.target.value; const pos = query.length; renderList(); const n = document.getElementById('q'); n.focus(); n.setSelectionRange(pos,pos); });
   app.querySelectorAll('.chip[data-s]').forEach(b => b.onclick = () => { spirit = b.dataset.s; renderList(); });
   app.querySelectorAll('.chip[data-t]').forEach(b => b.onclick = () => { tag = tag === b.dataset.t ? null : b.dataset.t; renderList(); });
-  app.querySelectorAll('.card').forEach(b => b.onclick = () => { location.hash = b.dataset.id; });
+  document.getElementById('barchip').onclick = () => { onlyFavs = !onlyFavs; renderList(); };
+  app.querySelectorAll('.card').forEach(b => b.onclick = () => go(b.dataset.id));
+  bindHearts(); bindTheme();
+  document.getElementById('addbtn').onclick = () => go('new');
+  document.getElementById('gear').onclick = () => go('settings');
+  const ng = document.getElementById('nudgego'); if (ng) ng.onclick = backup;
+  const nn = document.getElementById('nudgeno'); if (nn) nn.onclick = () => { nudgeOff = true; renderList(); };
 }
 
+function renderSettings(){
+  const b = store.get('dotd-backup', null);
+  const when = b && b.t ? new Date(b.t).toLocaleDateString() : '';
+  let status;
+  if (!storeOk) status = '<p class="warn">This browser is blocking saving (private mode?). Back up your bar to keep it.</p>';
+  else if (!FAVS.size && !MINE.length) status = '<p class="ok">Nothing to back up yet. Heart a drink or add your own first.</p>';
+  else if (!b) status = '<p class="warn">No backup yet.</p>';
+  else if (b.sig !== mySig()) status = `<p class="warn">You have changes since your last backup on ${when}.</p>`;
+  else status = `<p class="ok">Backed up on ${when}. You are all set.</p>`;
+  app.innerHTML = `
+    <div class="topbar"><button class="back" id="back">Back to all drinks</button></div>
+    <section class="detail set">
+      <h1>Settings</h1>
+      <h3>Your bar</h3>
+      <div class="meta">${FAVS.size} in your Bar Cart &middot; ${MINE.length} of your own drinks</div>
+      ${status}
+      <div class="links"><button type="button" class="mini" id="export">Back up my bar</button><button type="button" class="mini" id="import">Restore from backup</button></div>
+      <input type="file" id="file" accept="application/json" hidden>
+      <p class="hint">Hearts and your own drinks are saved on this device only. A backup is a small file you can keep in Files or Google Drive, or send to yourself. Restore loads it back, even on a new phone.</p>
+      <h3>Appearance</h3>
+      <div class="links"><button type="button" class="mini" id="theme">${theme === 'dark' ? 'Light mode' : 'Dark mode'}</button></div>
+      ${TIP_URL ? `<h3>Support</h3><p class="hint">Enjoying the app? A tip keeps the drinks flowing.</p><div class="links"><a class="mini" href="${esc(TIP_URL)}" target="_blank" rel="noopener">Buy me a drink</a></div>` : ''}
+      <h3>About</h3>
+      <p class="hint">21+ only. Please drink responsibly.</p>
+    </section>`;
+  document.getElementById('back').onclick = () => go('');
+  bindTheme();
+  document.getElementById('export').onclick = backup;
+  document.getElementById('import').onclick = () => document.getElementById('file').click();
+  document.getElementById('file').onchange = e => {
+    const f = e.target.files[0]; if (!f) return; const rd = new FileReader();
+    rd.onload = () => { try {
+      const s = JSON.parse(rd.result); if (!Array.isArray(s.favs) || !Array.isArray(s.mine)) throw 0;
+      if (confirm('Replace your hearts and drinks with this backup?')) { FAVS = new Set(s.favs); MINE = s.mine; store.set('dotd-favs', s.favs); store.set('dotd-mine', MINE); store.set('dotd-backup', { t: Date.now(), sig: mySig() }); rebuild(); renderSettings(); }
+    } catch (err) { alert('That is not a Drink of the Day backup.'); } };
+    rd.readAsText(f); e.target.value = '';
+  };
+  window.scrollTo(0, 0);
+}
+
+function renderForm(r){
+  const e = r || { name: '', spirit: '', glass: '', ingredients: [], steps: [], notes: '', pairings: { song: { title: '', artist: '' }, food: '' } };
+  const p = e.pairings || { song: {}, food: '' }; const s = p.song || {};
+  app.innerHTML = `
+    <button class="back" id="back">Cancel</button>
+    <form class="f detail" id="f">
+      <h1>${r ? 'Edit drink' : 'Add your drink'}</h1>
+      <label for="n">Name</label><input id="n" required maxlength="60" value="${esc(e.name)}">
+      <label for="sp">Spirit</label><input id="sp" list="spl" placeholder="Whiskey, Gin, Mezcal..." value="${esc(e.spirit)}"><datalist id="spl">${MAIN.concat(['Mezcal','Brandy','Amaro','Aquavit']).map(x => `<option value="${x}">`).join('')}</datalist>
+      <label for="gl">Glass (optional)</label><input id="gl" value="${esc(e.glass || '')}">
+      <label for="ig">Ingredients (one per line, like "2 oz gin")</label><textarea id="ig" rows="6" required>${esc(e.ingredients.map(i => [i.amount, i.unit, i.item].filter(Boolean).join(' ')).join('\n'))}</textarea>
+      <label for="st">Method (one step per line)</label><textarea id="st" rows="4">${esc(e.steps.join('\n'))}</textarea>
+      <label for="nt">Your notes</label><textarea id="nt" rows="3">${esc(e.notes || '')}</textarea>
+      <label for="sg">Song</label><input id="sg" placeholder="Song title" value="${esc(s.title || '')}">
+      <label for="ar">Artist</label><input id="ar" value="${esc(s.artist || '')}">
+      <label for="fd">Food pairing</label><input id="fd" value="${esc(p.food || '')}">
+      <button class="btn" type="submit">Save drink</button>
+    </form>`;
+  document.getElementById('back').onclick = () => { location.hash = r ? r.id : ''; };
+  document.getElementById('f').onsubmit = ev => {
+    ev.preventDefault(); const v = id => document.getElementById(id).value.trim();
+    const lines = id => v(id).split('\n').map(x => x.trim()).filter(Boolean);
+    const name = v('n');
+    const rec = {
+      id: r ? r.id : 'mine-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '-' + Date.now().toString(36),
+      name, pack: 'mine', spirit: v('sp') || 'Other', glass: v('gl'), serves: 1,
+      ingredients: lines('ig').map(parseIng), steps: lines('st'), notes: v('nt'),
+      pairings: { song: { title: v('sg'), artist: v('ar') }, food: v('fd') }, tags: ['Mine'], mine: true
+    };
+    MINE = r ? MINE.map(x => x.id === r.id ? rec : x) : MINE.concat(rec);
+    store.set('dotd-mine', MINE); rebuild(); go(rec.id);
+  };
+  window.scrollTo(0, 0);
+}
+
+function toNum(t){
+  const p = t.trim().split(/\s+/);
+  const fr = s => { const [n, d] = s.split('/'); return n / d; };
+  if (p.length === 2) return +p[0] + fr(p[1]);
+  return p[0].includes('/') ? fr(p[0]) : parseFloat(p[0]);
+}
+function fmtNum(x, dec){
+  if (dec) return String(Math.round(x * 100) / 100);
+  const name = (w, n, d) => (w ? w + (n ? ' ' : '') : '') + (n ? n + '/' + d : (w ? '' : '0'));
+  for (const d of [8, 3]) {
+    const r = Math.round(x * d) / d;
+    if (Math.abs(r - x) <= 0.02) {
+      let w = Math.floor(r + 1e-9), n = Math.round((r - w) * d), dd = d;
+      if (d === 8) { while (n && n % 2 === 0) { n /= 2; dd /= 2; } }
+      return name(w, n, dd);
+    }
+  }
+  return String(Math.round(x * 100) / 100);
+}
+function scaleAmt(a, f){
+  return f === 1 ? a : a.replace(/\d+\s+\d+\/\d+|\d+\/\d+|\d*\.\d+|\d+/g, t => fmtNum(toNum(t) * f, t.includes('.')));
+}
+function ingHTML(r, f){
+  return r.ingredients.map(i => `<li><span class="amt">${esc(scaleAmt(i.amount, f))} ${esc(i.unit)}</span><span>${esc(i.item)}</span></li>`).join('');
+}
 function renderDetail(r){
   app.innerHTML = `
-    <button class="back" id="back">Back to all drinks</button>
+    <div class="topbar"><button class="back" id="back">Back to all drinks</button>${favBtn(r)}</div>
     <article class="detail" style="--accent:${accent(r)}">
       <h1>${esc(r.name)}</h1>
       <div class="meta">${metaLine(r)}</div>
       <h3>Ingredients</h3>
-      <ul class="ing">${r.ingredients.map(i => `<li><span class="amt">${esc(i.amount)} ${esc(i.unit)}</span><span>${esc(i.item)}</span></li>`).join('')}</ul>
+      <div class="scaler"><span>Servings</span><button type="button" class="mini" id="dec" aria-label="Fewer servings">&minus;</button><b id="sv">${r.serves || 1}</b><button type="button" class="mini" id="inc" aria-label="More servings">+</button></div>
+      <ul class="ing" id="ing">${ingHTML(r, 1)}</ul>
+      <p class="hint" id="snote"></p>
       ${r.steps.length ? `<h3>Method</h3><ol>${r.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>` : ''}
       ${r.notes ? `<h3>My notes</h3><div class="note">${esc(r.notes)}</div>` : ''}
       ${pairBox(r)}
+      ${r.mine ? `<div class="links"><button type="button" class="mini" id="editbtn">Edit</button><button type="button" class="mini" id="del">Delete</button></div>` : ''}
     </article>`;
   document.getElementById('back').onclick = () => { location.hash = ''; };
+  bindHearts();
+  const base = r.serves || 1; let sv = base;
+  const upd = () => { document.getElementById('sv').textContent = sv; document.getElementById('ing').innerHTML = ingHTML(r, sv / base); document.getElementById('snote').textContent = sv === base ? '' : 'Dashes and splashes are listed as written. Adjust to taste.'; };
+  document.getElementById('dec').onclick = () => { if (sv > 1) { sv--; upd(); } };
+  document.getElementById('inc').onclick = () => { if (sv < 12) { sv++; upd(); } };
+  const eb = document.getElementById('editbtn'); if (eb) eb.onclick = () => go('edit/' + r.id);
+  const del = document.getElementById('del');
+  if (del) del.onclick = () => { if (confirm('Delete ' + r.name + '?')) { MINE = MINE.filter(x => x.id !== r.id); FAVS.delete(r.id); store.set('dotd-mine', MINE); store.set('dotd-favs', [...FAVS]); rebuild(); location.hash = ''; } };
   app.querySelectorAll('[data-copy]').forEach(b => b.onclick = async () => {
     try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = 'Copied'; setTimeout(() => { b.textContent = 'Copy'; }, 1500); }
     catch (e) { prompt('Copy this:', b.dataset.copy); }
@@ -5254,12 +5461,18 @@ function renderDetail(r){
   window.scrollTo(0,0);
 }
 
+function go(h){ try { location.hash = h; } catch (e) {} route(); }
 function route(){
-  const r = DATA.recipes.find(x => x.id === location.hash.slice(1));
+  const h = location.hash.slice(1);
+  if (h === 'settings') return renderSettings();
+  if (h === 'new') return renderForm();
+  if (h.startsWith('edit/')) return renderForm(MINE.find(x => x.id === h.slice(5)));
+  const r = DATA.recipes.find(x => x.id === h);
   r ? renderDetail(r) : renderList();
 }
 window.addEventListener('hashchange', route);
 route();
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
 </script>
 </body>
 </html>
